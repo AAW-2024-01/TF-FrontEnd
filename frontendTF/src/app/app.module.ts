@@ -20,6 +20,9 @@ import { DetailCursoComponent } from './components/curso/detail-curso/detail-cur
 import { ListCursoComponent } from './components/curso/list-curso/list-curso.component';
 import { ListHorarioComponent } from './components/horario/list-horario/list-horario.component';
 import { DetailHorarioComponent } from './components/horario/detail-horario/detail-horario.component';
+import { HomeComponent } from './components/home/home.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 @NgModule({
@@ -37,6 +40,9 @@ import { DetailHorarioComponent } from './components/horario/detail-horario/deta
     ListCursoComponent,
     ListHorarioComponent,
     DetailHorarioComponent,
+    HomeComponent,
+    HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

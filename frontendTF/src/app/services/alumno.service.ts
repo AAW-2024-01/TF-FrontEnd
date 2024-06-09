@@ -22,7 +22,10 @@ export class AlumnoService {
     return this.clienteHTTP.post<Alumno>(this.servidor+"/"+this.recurso,alumno);
   }
   putAlumno(alumno:Alumno){
-    
+    return this.clienteHTTP.put<Alumno>(this.servidor+"/"+this.recurso,alumno 
+      + "/" + alumno.id.toString());
   }
-
+  deleteAlumno(id:number){
+    return this.clienteHTTP.delete(this.servidor+"/"+this.recurso + "/" + id.toString());
+  }
 }

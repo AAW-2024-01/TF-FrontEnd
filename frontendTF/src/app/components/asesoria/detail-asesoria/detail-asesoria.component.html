@@ -1,0 +1,29 @@
+<!-- mis-asesorias.component.html -->
+<div class="container">
+    <h2>Mis Asesorías</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Hora de Inicio</th>
+          <th>Hora de Fin</th>
+          <th>Duración</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let asesoria of asesorias">
+          <td>{{ asesoria.fechaRegistro | date }}</td>
+          <td>{{ asesoria.horaInicio }}</td>
+          <td>{{ asesoria.horaFin }}</td>
+          <td>{{ asesoria.duracion }} mins</td>
+          <td>{{ asesoria.estado }}</td>
+          <td>
+            <button class="btn btn-danger" (click)="cancelarAsesoria(asesoria.id)" [disabled]="asesoria.estado === 'CANCELADA'">Cancelar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

@@ -1,0 +1,68 @@
+<div class="container">
+    <h2>Registrar Asesoría</h2>
+  
+    <!-- Formulario para registrar una nueva asesoría -->
+    <form (ngSubmit)="reservarAsesoria()">
+      <div class="form-group">
+        <label for="inputFecha">Fecha de la Asesoría:</label>
+        <input type="date" class="form-control" id="inputFecha" [(ngModel)]="asesoria.fechaRealizado" name="fechaRealizado" required>
+      </div>
+      <div class="form-group">
+        <label for="inputHoraInicio">Hora de Inicio:</label>
+        <input type="time" class="form-control" id="inputHoraInicio" [(ngModel)]="asesoria.horaInicio" name="horaInicio" required>
+      </div>
+      <div class="form-group">
+        <label for="inputHoraFin">Hora de Fin:</label>
+        <input type="time" class="form-control" id="inputHoraFin" [(ngModel)]="asesoria.horaFin" name="horaFin" required>
+      </div>
+      <div class="form-group">
+        <label for="inputTarifa">Tarifa Pactada:</label>
+        <input type="number" class="form-control" id="inputTarifa" [(ngModel)]="asesoria.tarifaPactadas" name="tarifaPactadas" required>
+      </div>
+      <div class="form-group">
+        <label for="inputAlumno">ID del Alumno:</label>
+        <input type="number" class="form-control" id="inputAlumno" [(ngModel)]="asesoria.alumnoId" name="alumnoId" required>
+      </div>
+      <div class="form-group">
+        <label for="inputAsesor">ID del Asesor:</label>
+        <input type="number" class="form-control" id="inputAsesor" [(ngModel)]="asesoria.asesorId" name="asesorId" required>
+      </div>
+      <div class="form-group">
+        <label for="inputCurso">ID del Curso:</label>
+        <input type="number" class="form-control" id="inputCurso" [(ngModel)]="asesoria.cursoId" name="cursoId">
+      </div>
+      <button type="submit" class="btn btn-primary">Reservar Asesoría</button>
+    </form>
+  
+    <hr>
+  
+    <!-- Lista de asesorías en el calendario -->
+    <h2>Calendario de Asesorías</h2>
+    <ul class="list-group">
+      <li *ngFor="let asesoria of calendario" class="list-group-item">
+        <strong>Fecha:</strong> {{ asesoria.fechaRealizado | date }}<br>
+        <strong>Hora:</strong> {{ asesoria.horaInicio }} - {{ asesoria.horaFin }}<br>
+        <strong>Tarifa:</strong> {{ asesoria.tarifaPactadas }}<br>
+        <strong>Estado:</strong> {{ asesoria.estado }}<br>
+        <strong>Alumno:</strong> {{ asesoria.alumnoId }}<br>
+        <strong>Asesor:</strong> {{ asesoria.asesorId }}<br>
+        <strong>Curso:</strong> {{ asesoria.cursoId }}<br>
+        <form (submit)="reprogramarAsesoria($event, asesoria.id)">
+          <div class="form-group">
+            <label for="nuevaFecha">Nueva Fecha:</label>
+            <input type="date" class="form-control" id="nuevaFecha" name="nuevaFecha" required>
+          </div>
+          <div class="form-group">
+            <label for="nuevaHoraInicio">Nueva Hora de Inicio:</label>
+            <input type="time" class="form-control" id="nuevaHoraInicio" name="nuevaHoraInicio" required>
+          </div>
+          <div class="form-group">
+            <label for="nuevaHoraFin">Nueva Hora de Fin:</label>
+            <input type="time" class="form-control" id="nuevaHoraFin" name="nuevaHoraFin" required>
+          </div>
+          <button type="submit" class="btn btn-warning">Reprogramar</button>
+        </form>
+      </li>
+    </ul>
+  </div>
+  

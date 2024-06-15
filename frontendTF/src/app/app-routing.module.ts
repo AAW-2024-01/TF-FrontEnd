@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ListAlumnoComponent } from './components/alumno/list-alumno/list-alumno.component';
@@ -12,6 +13,7 @@ import { ListHorarioComponent } from './components/horario/list-horario/list-hor
 import { DetailHorarioComponent } from './components/horario/detail-horario/detail-horario.component';
 import { ListOpinionComponent } from './components/opinion/list-opinion/list-opinion.component';
 import { DetailOpinionComponent } from './components/opinion/detail-opinion/detail-opinion.component';
+import { DetailAsesoriaComponent } from './components/asesoria/detail-asesoria/detail-asesoria.component';
 
 const routes: Routes = [
 
@@ -26,7 +28,8 @@ const routes: Routes = [
   {path:"list-horario",component:ListHorarioComponent},
   {path:"detail-horario",component:DetailHorarioComponent},
   {path:"list-opinion",component:ListOpinionComponent},
-  {path:"detail-opinion",component:DetailOpinionComponent}
+  {path:"detail-opinion",component:DetailOpinionComponent},
+  {path: "detail-asesoria", component:DetailAsesoriaComponent}
 ];
 
 @NgModule({

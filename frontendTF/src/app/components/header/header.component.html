@@ -1,1 +1,28 @@
-<p>header works!</p>
+    <header>
+        <div class="contenedor_header">
+        <div class="menu_bar">
+            <div class="logo">
+                <img src="/logo.png" alt="">
+            </div>
+        </div>
+        <div class="boton_3p">
+            <button id="icon_menu" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>menu</mat-icon>
+            </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <img id="profile" src="/profile.svg">
+                  <span> Ver mi Perfil</span>
+                </button>
+                <button mat-menu-item disabled>
+                  <mat-icon></mat-icon>
+                  <span></span>
+                </button>
+                <button mat-menu-item>
+                  <img id="teacher" src="/teacher.svg">
+                  <span> Modo Asesor</span>
+                </button>
+              </mat-menu>
+        </div>
+        </div>
+    </header>

@@ -10,12 +10,21 @@
     align-items: center; 
 }
 
+.tipo_usuario h2
+{
+    color:#fff;
+    font-size: 24px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* Compensa el ancho del elemento */
+}
+
 .logo img{
     width: 70px;
     cursor: pointer;
 }
 
-  .boton_3p{
+.boton_3p{
     position: absolute;
     top: 35;
     right: 0;

@@ -1,4 +1,6 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core'
+import { MatDialog } from '@angular/material/dialog'
+import { PerfilAlumnoComponent } from '../alumno/perfil-alumno/perfil-alumno.component';
 
 @Component({
   selector: 'app-header',
@@ -6,5 +8,14 @@ import {ChangeDetectionStrategy, Component, inject} from '@angular/core'
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
-  
+  readonly dialog =inject(MatDialog);
+  openDialog(){
+    const dialogRef = this.dialog.open(PerfilAlumnoComponent);
+    dialogRef.afterClosed().subscribe(result=>
+      {
+        console.log('Dialog result:${result}');
+      }
+    );
+  }
+
 }

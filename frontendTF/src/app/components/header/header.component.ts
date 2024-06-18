@@ -1,6 +1,8 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core'
-import { MatDialog } from '@angular/material/dialog'
-import { PerfilAlumnoComponent } from '../alumno/perfil-alumno/perfil-alumno.component';
+import { MatDialog,MatDialogConfig } from '@angular/material/dialog'
+import { PerfilAlumnoComponent } from '../alumno/perfil-alumno/perfil-alumno.component'
+
+;
 
 @Component({
   selector: 'app-header',
@@ -17,5 +19,4 @@ export class HeaderComponent {
       }
     );
   }
-
 }

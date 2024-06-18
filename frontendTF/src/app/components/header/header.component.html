@@ -12,7 +12,7 @@
             <button id="icon_menu" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                 <mat-icon>menu</mat-icon>
             </button>
-              <mat-menu #menu="matMenu">
+              <mat-menu #menu="matMenu" xPosition="before">
                 <button mat-button (click)="openDialog()">
                   <img id="profile" src="/profile.svg">
                   <span> Ver mi Perfil</span>

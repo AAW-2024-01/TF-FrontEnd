@@ -29,7 +29,7 @@ const routes: Routes = [
   {path:"list-horario",component:ListHorarioComponent},
   {path:"detail-horario",component:DetailHorarioComponent},
   {path:"list-opinion",component:ListOpinionComponent},
-  {path:"detail-opinion",component:DetailOpinionComponent}
+  {path:"detail-opinion",component:DetailOpinionComponent},
   {path:"",component:HomeComponent},
   {path:"header",component:HeaderComponent},
   {path:"footer",component:FooterComponent},

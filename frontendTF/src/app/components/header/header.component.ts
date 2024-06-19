@@ -4,6 +4,7 @@ import { PerfilAlumnoComponent } from '../alumno/perfil-alumno/perfil-alumno.com
 
 ;
 import { DetailAsesorComponent } from '../asesor/detail-asesor/detail-asesor.component';
+import { PerfilAsesorComponent } from '../asesor/perfil-asesor/perfil-asesor.component';
 
 @Component({
   selector: 'app-header',
@@ -28,7 +29,7 @@ export class HeaderComponent {
         this.dialog.open(PerfilAlumnoComponent);
         break;
       case 'Asesor':
-        this.dialog.open(DetailAsesorComponent);
+        this.dialog.open(PerfilAsesorComponent);
         break;
       default:
         console.warn(`Unsupported text value: ${this.currentText}`);

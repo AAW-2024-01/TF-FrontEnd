@@ -23,6 +23,8 @@ import { DetailHorarioComponent } from './components/horario/detail-horario/deta
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { PerfilAlumnoComponent } from './components/alumno/perfil-alumno/perfil-alumno.component';
+import { PerfilAsesorComponent } from './components/asesor/perfil-asesor/perfil-asesor.component';
 
 
 @NgModule({
@@ -43,6 +45,8 @@ import { FooterComponent } from './components/footer/footer.component';
     HomeComponent,
     HeaderComponent,
     FooterComponent,
+    PerfilAlumnoComponent,
+    PerfilAsesorComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,31 @@
-<p>detail-asesor works!</p>
+<h2 style="background-color: #808080;
+            margin: 0;
+            font-size: 1em;
+            text-align: center;
+            color: white;">Editar Asesor</h2>
+<mat-dialog-content id="contenedor">
+    <article id="cuerpo">
+        <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Apellido</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Tarifa</mat-label>
+            <input matInput>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Experiencia</mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
+
+    </article>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Guardar</button>
+</mat-dialog-actions>

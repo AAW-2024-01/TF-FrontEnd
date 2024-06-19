@@ -1,0 +1,43 @@
+<!-- <h2>Perfil del Alumno</h2> -->
+<h2 style="background-color: #808080;
+            margin: 0;
+            font-size: 1em;
+            text-align: center;
+            color: white;">Perfil del Asesor</h2>
+<mat-dialog-content id="contenedor">
+<article id="cuerpo">
+    <article id="seccion1">
+        <aside id="izquierda">
+            <img id="perfil" src="/imgprofile.png">
+            <button id="btncontacto" mat-button (click)="openEditar()">
+                <img id="contacto" src="/contact.svg">
+                <p id="txtcontacto">contacto</p>
+            </button>
+        </aside>
+        
+        <aside id="derecha">
+            <!-- <button mat-button (click)="openEditar"> -->
+            <button mat-button (click)="openEditar()">
+                <img id="editar" src="/pencil.svg">
+            </button>
+        </aside>
+
+        <aside class="seccion2">
+            <h5>Nombre</h5>
+            <h5>Apellido</h5>
+        </aside>
+
+        <aside class="seccion3">
+            <aside class="seccion3_1">
+              <h5>username</h5>
+              <h6>Se union en</h6>  
+              <h6>"fecha registro"</h6>
+              <h6>Tarifa</h6>  
+              <h6>"Tarifa"</h6> 
+              <h6>Experiencia</h6>  
+              <h6>"Experiencia"</h6>    
+            </aside>
+        </aside>
+    </article>
+</article>
+</mat-dialog-content>

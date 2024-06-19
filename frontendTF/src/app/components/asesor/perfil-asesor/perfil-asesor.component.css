@@ -21,6 +21,7 @@
     width: 75%;
     /* background: yellow; */
     float: left;
+    
 }
 #perfil{
     width: 120px;
@@ -37,6 +38,28 @@
 #editar{
     width: 3em;
     float: right;
+    /* transform: translateY(-3em);    */
+    transform: translateX(4em);   
+}
+
+#btncontacto
+{
+    transform: translateX(-4em);
+}
+
+#contacto
+{
+    width: 4em;
+    transform: translateY(-60px);   
+    position: relative;
+    left: -6%;
+    /* transform: translateX(-0.9em); */
+    float: right;
+}
+#txtcontacto
+{
+    transform: translateX(3em);
+    float: left;
 }
 
 
@@ -62,7 +85,7 @@
 }
 .seccion3_1
 {
-    height: 200px;
+    height: 300px;
     width: 98%;
     position: relative;
     left: 12.5%;

@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="tipo_usuario">
-          <h2>Alumno</h2>
+          <h2>{{currentText}}</h2>
         </div>
         <div class="boton_3p">
             <button id="icon_menu" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -28,9 +28,9 @@
                   <mat-icon></mat-icon>
                   <span></span>
                 </button>
-                <button mat-menu-item>
+                <button mat-menu-item (click)="toggleText()">
                   <img id="teacher" src="/teacher.svg">
-                  <span> Modo Asesor</span>
+                  <span> Modo {{previousText}}</span>
                 </button>
               </mat-menu>
         </div>

@@ -17,9 +17,10 @@ import { PerfilAlumnoComponent } from './components/alumno/perfil-alumno/perfil-
 import { DetailAlumnoComponent } from './components/alumno/detail-alumno/detail-alumno.component'; 
 import { DetailAsesorComponent } from './components/asesor/detail-asesor/detail-asesor.component';
 import { PerfilAsesorComponent } from './components/asesor/perfil-asesor/perfil-asesor.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
-
+  {path:"login",component:LoginComponent},
   {path:"list-alumno",component:ListAlumnoComponent},
   {path:"list-asesor",component:ListAsesorComponent},
   {path:"list-canal-contacto",component:ListCanalContactoComponent},

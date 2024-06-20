@@ -25,6 +25,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PerfilAlumnoComponent } from './components/alumno/perfil-alumno/perfil-alumno.component';
 import { PerfilAsesorComponent } from './components/asesor/perfil-asesor/perfil-asesor.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegistrarComponent } from './components/registrar/registrar.component';
 
 
 @NgModule({
@@ -47,6 +49,8 @@ import { PerfilAsesorComponent } from './components/asesor/perfil-asesor/perfil-
     FooterComponent,
     PerfilAlumnoComponent,
     PerfilAsesorComponent,
+    LoginComponent,
+    RegistrarComponent,
   ],
   imports: [
     BrowserModule,

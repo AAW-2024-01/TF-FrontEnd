@@ -1,0 +1,106 @@
+.mat-mdc-dialog-container .mat-mdc-dialog-title {
+    background-color: grey;
+}
+
+#cuerpo{
+    height: 630px;
+    width: 85%;
+    /* transform: translateX(20%); */
+    /* background: red; */
+    transform: scale(0.85);
+}
+
+#seccion1{
+    height: 120px;
+    width: 100%;
+    /* background: green; */
+}
+
+#izquierda{
+    height: 120px;
+    width: 75%;
+    /* background: yellow; */
+    float: left;
+    
+}
+#perfil{
+    width: 120px;
+    border-radius: 50%;
+    position: relative;
+    left: 50%;
+}
+#derecha{
+    height: 120px;
+    width: 25%;
+    /* background-color: orange; */
+    float: left;
+}
+#editar{
+    width: 3em;
+    float: right;
+    /* transform: translateY(-3em);    */
+    transform: translateX(4em);   
+}
+
+#btncontacto
+{
+    transform: translateX(-4em);
+}
+
+#contacto
+{
+    width: 4em;
+    transform: translateY(-60px);   
+    position: relative;
+    left: -6%;
+    /* transform: translateX(-0.9em); */
+    float: right;
+}
+#txtcontacto
+{
+    transform: translateX(3em);
+    float: left;
+}
+
+
+
+.seccion2{
+    height: 90px;
+    width: 100%;
+    /* background-color: green; */
+    float: left;
+}
+.seccion2 h5
+{
+    position: relative;
+    left: 40%;
+}
+
+.seccion3
+{
+    height: 200px;
+    width: 100%;
+    /* background-color: white; */
+    float: left;
+}
+.seccion3_1
+{
+    height: 300px;
+    width: 98%;
+    position: relative;
+    left: 12.5%;
+    background-color: grey;
+    border-radius: 5%;
+    color:#fff;
+}
+.seccion3_1 h5
+{
+    position: relative;
+    left: 30%;
+}
+.seccion3_1 h6
+{
+    position: relative;
+    left: 5%;
+    top: -20px; 
+}

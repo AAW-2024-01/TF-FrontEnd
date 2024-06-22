@@ -1,1 +1,26 @@
-<p>detail-curso works!</p>
+<h3>Agregar Cursos</h3>
+<form [formGroup]="detalleFormGroup">
+
+    <mat-form-field>
+        <mat-label>Id</mat-label>
+        <input matInput formControlName="id" readonly>
+    </mat-form-field>
+    <br>
+
+    <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="budget">
+    </mat-form-field>
+    <br>
+
+    <mat-form-field>
+        <mat-label>ciclo</mat-label>
+        <input matInput formControlName="name">
+    </mat-form-field>
+    <br>
+
+</form>
+
+<button mat-flat-button color="warn" routerLink="/list">Regresar</button>
+<span> | </span>
+<button mat-flat-button color="accent" >Agregar</button>

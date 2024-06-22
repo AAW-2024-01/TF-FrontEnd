@@ -8,7 +8,7 @@ import { Horario } from '../models/horario';
 export class HorarioService {
 
   servidor:string = "http://localhost:8080/api";
-  recurso:string = "asesor"
+  recurso:string = "horario"
   constructor(private clienteHTTP:HttpClient) { }
 
   //METODOS CRUD DEL BACKEND

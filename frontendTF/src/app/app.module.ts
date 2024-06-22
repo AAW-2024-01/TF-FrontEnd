@@ -27,6 +27,7 @@ import { PerfilAlumnoComponent } from './components/alumno/perfil-alumno/perfil-
 import { PerfilAsesorComponent } from './components/asesor/perfil-asesor/perfil-asesor.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrarComponent } from './components/registrar/registrar.component';
+import { ConfirmacionComponent } from './components/confirmacion/confirmacion.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { RegistrarComponent } from './components/registrar/registrar.component';
     PerfilAsesorComponent,
     LoginComponent,
     RegistrarComponent,
+    ConfirmacionComponent,
   ],
   imports: [
     BrowserModule,

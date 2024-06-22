@@ -8,7 +8,7 @@ import { Curso } from '../models/curso';
 export class CursoService {
 
   servidor:string = "http://localhost:8080/api";
-  recurso:string = "asesor"
+  recurso:string = "curso"
   constructor(private clienteHTTP:HttpClient) { }
 
   //METODOS CRUD DEL BACKEND

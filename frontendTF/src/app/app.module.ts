@@ -28,6 +28,8 @@ import { PerfilAsesorComponent } from './components/asesor/perfil-asesor/perfil-
 import { LoginComponent } from './components/login/login.component';
 import { RegistrarComponent } from './components/registrar/registrar.component';
 import { ConfirmacionComponent } from './components/confirmacion/confirmacion.component';
+import { ListAsesoriaComponent } from './components/asesoria/list-asesoria/list-asesoria.component';
+import { DetailAsesoriaComponent } from './components/asesoria/detail-asesoria/detail-asesoria.component';
 
 
 @NgModule({
@@ -53,6 +55,8 @@ import { ConfirmacionComponent } from './components/confirmacion/confirmacion.co
     LoginComponent,
     RegistrarComponent,
     ConfirmacionComponent,
+    ListAsesoriaComponent,
+    DetailAsesoriaComponent
   ],
   imports: [
     BrowserModule,

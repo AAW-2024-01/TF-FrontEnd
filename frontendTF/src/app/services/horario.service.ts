@@ -15,9 +15,13 @@ export class HorarioService {
   getAllHorarios(){
     return this.clienteHTTP.get<Horario[]>(this.servidor+"/"+this.recurso);
   }
+  getHorariosPorAsesorId(id:number){
+    return this.clienteHTTP.get<Horario[]>(this.servidor+"/"+this.recurso + "/asesor" + "/" + id.toString());
+  }
   getHorario(id:number){
     return this.clienteHTTP.get<Horario>(this.servidor+"/"+this.recurso + "/" + id.toString());
   }
+  
   postHorario(alumno:Horario){
     return this.clienteHTTP.post<Horario>(this.servidor+"/"+this.recurso,alumno);
   }

@@ -5,6 +5,7 @@ import { HorarioService } from '../../../services/horario.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmacionComponent } from '../../confirmacion/confirmacion.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-horario',
@@ -15,7 +16,7 @@ export class ListHorarioComponent {
   displayedColumns:string[]=["id","dia","horaInicio","horaFin","acciones"];
   dataSource!: MatTableDataSource<Horario>;
 
-  constructor(private horarioService:HorarioService,private _snackBar:MatSnackBar, private confirmador: MatDialog){}
+  constructor(private horarioService:HorarioService,private _snackBar:MatSnackBar, private confirmador: MatDialog,private ruta:ActivatedRoute){}
 
   applyFilter(evento:Event){
     const filterValue = (evento.target as HTMLInputElement).value;
@@ -24,10 +25,9 @@ export class ListHorarioComponent {
 
   ngOnInit(): void {
     this.cargaHorarios();
-    
   }
   cargaHorarios(){
-    this.horarioService.getAllHorarios().subscribe({
+    this.horarioService.getHorariosPorAsesorId(2).subscribe({
       next:(data:Horario[])=>{
         this.dataSource = new MatTableDataSource(data);
       },

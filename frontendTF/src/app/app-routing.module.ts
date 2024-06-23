@@ -18,6 +18,8 @@ import { DetailAlumnoComponent } from './components/alumno/detail-alumno/detail-
 import { DetailAsesorComponent } from './components/asesor/detail-asesor/detail-asesor.component';
 import { PerfilAsesorComponent } from './components/asesor/perfil-asesor/perfil-asesor.component';
 import { LoginComponent } from './components/login/login.component';
+import { ListAsesoriaComponent } from './components/asesoria/list-asesoria/list-asesoria.component';
+import { DetailAsesoriaComponent } from './components/asesoria/detail-asesoria/detail-asesoria.component';
 
 const routes: Routes = [
   {path:"login",component:LoginComponent},
@@ -31,6 +33,9 @@ const routes: Routes = [
   {path:"list-horario",component:ListHorarioComponent},
   {path:"detail-horario",component:DetailHorarioComponent},
   {path:"edit-horario/:id",component:DetailHorarioComponent},
+  {path:"list-asesoria",component:ListAsesoriaComponent},
+  {path:"detail-asesoria",component:DetailAsesoriaComponent},
+  {path:"edit-asesoria/:id",component:DetailAsesoriaComponent},
   {path:"list-opinion",component:ListOpinionComponent},
   {path:"detail-opinion",component:DetailOpinionComponent},
   {path:"",component:HomeComponent},

@@ -27,6 +27,13 @@
         <input matInput formControlName="ciclo">
     </mat-form-field>
     <br>
+    
+    <mat-form-field>        
+        <mat-label>Asesor</mat-label>
+        <mat-select formControlName="asesor">
+            <mat-option *ngFor="let asesor of listAsesor" [value]="asesor.id">{{asesor.nombre}} </mat-option>
+        </mat-select>
+    </mat-form-field>
 </form>
 
 <button mat-flat-button color="warn" routerLink="/list-curso">Regresar</button>

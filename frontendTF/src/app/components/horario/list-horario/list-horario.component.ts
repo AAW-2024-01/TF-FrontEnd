@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './list-horario.component.css'
 })
 export class ListHorarioComponent {
-  displayedColumns:string[]=["id","dia","horaInicio","horaFin","acciones"];
+  displayedColumns:string[]=["id","dia","horaInicio","horaFin","asesor","acciones"];
   dataSource!: MatTableDataSource<Horario>;
 
   constructor(private horarioService:HorarioService,private _snackBar:MatSnackBar, private confirmador: MatDialog,private ruta:ActivatedRoute){}
@@ -26,8 +26,9 @@ export class ListHorarioComponent {
   ngOnInit(): void {
     this.cargaHorarios();
   }
+
   cargaHorarios(){
-    this.horarioService.getHorariosPorAsesorId(2).subscribe({
+    this.horarioService.getAllHorarios().subscribe({
       next:(data:Horario[])=>{
         this.dataSource = new MatTableDataSource(data);
       },

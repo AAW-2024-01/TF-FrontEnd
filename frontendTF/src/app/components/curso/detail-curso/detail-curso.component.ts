@@ -4,6 +4,8 @@ import { CursoService } from '../../../services/curso.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Curso } from '../../../models/curso';
+import { AsesorService } from '../../../services/asesor.service';
+import { Asesor } from '../../../models/asesor';
 
 @Component({
   selector: 'app-detail-curso',
@@ -13,11 +15,14 @@ import { Curso } from '../../../models/curso';
 export class DetailCursoComponent {
   detalleFormGroup!:FormGroup;
   id:number=0;
+  listAsesor:Asesor[]=[];
 
   constructor (private servicioCurso: CursoService, private formBuilder:FormBuilder,
-               private enrutador: Router, private _snackBar: MatSnackBar, private ruta:ActivatedRoute) {};
+               private enrutador: Router, private _snackBar: MatSnackBar, 
+               private ruta:ActivatedRoute,private asesorService:AsesorService) {};
   
   ngOnInit(){
+    this.cargaAsesor();
     this.crearFormGrup();
     this.id = this.ruta.snapshot.params["id"];
     if (this.id!=0 && this.id!=undefined) {
@@ -40,7 +45,8 @@ export class DetailCursoComponent {
     this.detalleFormGroup = this.formBuilder.group({
       id:[""],
       nombre:["",[Validators.required,Validators.minLength(5)]],
-      ciclo:["",[Validators.required]]
+      ciclo:["",[Validators.required]],
+      asesor:[""]
     });
   }
 
@@ -48,7 +54,7 @@ export class DetailCursoComponent {
     const nuevoCurso:Curso={
       id: parseInt(this.detalleFormGroup.get("id")!.value),
       nombre: this.detalleFormGroup.get("nombre")!.value,
-      ciclo: parseFloat(this.detalleFormGroup.get("ciclo")!.value)
+      ciclo: parseFloat(this.detalleFormGroup.get("ciclo")!.value),
     };
     this.servicioCurso.postCurso(nuevoCurso).subscribe({
       next:(data:Curso) => {
@@ -63,6 +69,16 @@ export class DetailCursoComponent {
 
       }
     });
+  }
+  cargaAsesor(){
+    this.asesorService.getAllAsesores().subscribe({
+      next:(data:Asesor[])=>{
+        this.listAsesor=data;
+      },
+      error: (err)=>{
+        console.log(err);        
+      }
+    })
   }
 
 }

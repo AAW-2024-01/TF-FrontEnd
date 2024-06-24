@@ -20,6 +20,8 @@ import { PerfilAsesorComponent } from './components/asesor/perfil-asesor/perfil-
 import { LoginComponent } from './components/login/login.component';
 import { ListAsesoriaComponent } from './components/asesoria/list-asesoria/list-asesoria.component';
 import { DetailAsesoriaComponent } from './components/asesoria/detail-asesoria/detail-asesoria.component';
+import { ListAsesorCursoComponent } from './components/asesor-curso/list-asesor-curso/list-asesor-curso.component';
+import { DetailAsesorCursoComponent } from './components/asesor-curso/detail-asesor-curso/detail-asesor-curso.component';
 
 const routes: Routes = [
   {path:"login",component:LoginComponent},
@@ -30,6 +32,8 @@ const routes: Routes = [
   {path:"list-curso",component:ListCursoComponent},
   {path:"detail-curso",component:DetailCursoComponent},
   {path:"edit-curso/:id",component:DetailCursoComponent},
+  {path:"list-asesor-curso",component:ListAsesorCursoComponent},
+  {path:"detail-asesor-curso",component:DetailAsesorCursoComponent},
   {path:"list-horario",component:ListHorarioComponent},
   {path:"detail-horario",component:DetailHorarioComponent},
   {path:"edit-horario/:id",component:DetailHorarioComponent},
@@ -38,6 +42,7 @@ const routes: Routes = [
   {path:"edit-asesoria/:id",component:DetailAsesoriaComponent},
   {path:"list-opinion",component:ListOpinionComponent},
   {path:"detail-opinion",component:DetailOpinionComponent},
+  {path:"home",component:HomeComponent},
   {path:"",component:HomeComponent},
   {path:"header",component:HeaderComponent},
   {path:"footer",component:FooterComponent},

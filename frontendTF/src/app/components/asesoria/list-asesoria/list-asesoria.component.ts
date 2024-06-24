@@ -14,7 +14,7 @@ import { Curso } from '../../../models/curso';
 })
 export class ListAsesoriaComponent {
   dataSource=new MatTableDataSource<Asesoria>();
-  displayedColumns:string[]=["id","alumno","curso","monto","estado","actions"];
+  displayedColumns:string[]=["id","alumno","curso","horaInicio","horaFin","monto","estado","actions"];
   cantidad:number=0;
   curso:Curso[]=[];
 
@@ -39,13 +39,10 @@ export class ListAsesoriaComponent {
         console.log(err);
       }
     });
-    
   }
 
   eliminar(id: number){
-    
     let respuestaDialog = this.confirmador.open(ConfirmacionComponent);  
-    
     respuestaDialog.afterClosed().subscribe(result => {
       if (result) {
         this.asesoriaService.deleteAsesoria(id).subscribe({
@@ -60,7 +57,5 @@ export class ListAsesoriaComponent {
         });
       }    
     });
-
-    
   }
 }

@@ -1,23 +1,27 @@
 import { Component } from '@angular/core';
+import { ConfirmacionComponent } from '../../confirmacion/confirmacion.component';
 import { Curso } from '../../../models/curso';
 import { MatTableDataSource } from '@angular/material/table';
 import { CursoService } from '../../../services/curso.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmacionComponent } from '../../confirmacion/confirmacion.component';
+import { AsesorService } from '../../../services/asesor.service';
 import { AsesorCursoService } from '../../../services/asesor-curso.service';
+import { AsesorCurso } from '../../../models/asesor-curso';
+import { Asesor } from '../../../models/asesor';
 
 @Component({
-  selector: 'app-list-curso',
-  templateUrl: './list-curso.component.html',
-  styleUrl: './list-curso.component.css'
+  selector: 'app-list-asesor-curso',
+  templateUrl: './list-asesor-curso.component.html',
+  styleUrl: './list-asesor-curso.component.css'
 })
-export class ListCursoComponent {
-  displayedColumns:string[]=["id","nombre","ciclo","acciones"];
-  dataSource!: MatTableDataSource<Curso>;
-
+export class ListAsesorCursoComponent {
+  displayedColumns:string[]=["id","nombre","ciclo","asesor","acciones"];
+  dataSource!: MatTableDataSource<AsesorCurso>;
+  listCursos:Curso[]=[];
   constructor(private cursoService:CursoService,private _snackBar:MatSnackBar, 
-              private confirmador: MatDialog, private asesorCursoService:AsesorCursoService){}
+              private confirmador: MatDialog, private asesorService:AsesorService,
+              private asesesorCursoService:AsesorCursoService){}
 
   applyFilter(evento:Event){
     const filterValue = (evento.target as HTMLInputElement).value;
@@ -25,12 +29,12 @@ export class ListCursoComponent {
   }
 
   ngOnInit(): void {
-    this.cargaCursos();
+    this.cargaAsesorCurso();
     
   }
-  cargaCursos(){
-    this.cursoService.getAllCursos().subscribe({
-      next:(data:Curso[])=>{
+  cargaAsesorCurso(){
+    this.asesesorCursoService.getAllAsesorCurso().subscribe({
+      next:(data:AsesorCurso[])=>{
         this.dataSource = new MatTableDataSource(data);
       },
       error:(err)=>{
@@ -38,16 +42,13 @@ export class ListCursoComponent {
       }
     })
   }
-
   eliminar(id: number){
-    
     let respuestaDialog = this.confirmador.open(ConfirmacionComponent);  
-    
     respuestaDialog.afterClosed().subscribe(result => {
       if (result) {
         this.cursoService.deleteCurso(id).subscribe({
           next: ()=>{
-            this.cargaCursos();
+            this.cargaAsesorCurso();
           },
           error:(err)=> {
             console.log(err);

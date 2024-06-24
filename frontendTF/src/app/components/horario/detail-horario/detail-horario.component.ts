@@ -4,6 +4,8 @@ import { Horario } from '../../../models/horario';
 import { HorarioService } from '../../../services/horario.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Asesor } from '../../../models/asesor';
+import { AsesorService } from '../../../services/asesor.service';
 
 @Component({
   selector: 'app-detail-horario',
@@ -13,11 +15,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class DetailHorarioComponent {
   detalleFormGroup!:FormGroup;
   id:number=0;
+  listAsesor:Asesor[]=[];
 
   constructor (private servicioHorario: HorarioService, private formBuilder:FormBuilder,
-               private enrutador: Router, private _snackBar: MatSnackBar, private ruta:ActivatedRoute) {};
+               private enrutador: Router, private _snackBar: MatSnackBar, 
+               private ruta:ActivatedRoute, private asesorService:AsesorService) {};
   
   ngOnInit(){
+    this.cargaAsesor();
     this.crearFormGrup();
     this.id = this.ruta.snapshot.params["id"];
     if (this.id!=0 && this.id!=undefined) {
@@ -42,16 +47,18 @@ export class DetailHorarioComponent {
       id:[""],
       dia:["",[Validators.required,Validators.minLength(5)]],
       horaInicio:[""],
-      horaFin:[""]
+      horaFin:[""],
+      asesor:[""]
     });
   }
 
-  grabarCurso(){
+  grabarHorario(){
     const nuevoHorario:Horario={
       id: parseInt(this.detalleFormGroup.get("id")!.value),
       dia: this.detalleFormGroup.get("dia")!.value,
       horaInicio: this.detalleFormGroup.get("horaInicio")!.value,
-      horaFin: this.detalleFormGroup.get("horaFin")!.value
+      horaFin: this.detalleFormGroup.get("horaFin")!.value,
+      asesor:{id:this.detalleFormGroup.get("asesor")!.value, nombre:"",apellido:"",tarifa:0,experiencia:""}
     };
     this.servicioHorario.postHorario(nuevoHorario).subscribe({
       next:(data:Horario) => {
@@ -65,5 +72,15 @@ export class DetailHorarioComponent {
 
       }
     });
+  }
+  cargaAsesor(){
+    this.asesorService.getAllAsesores().subscribe({
+      next:(data:Asesor[])=>{
+        this.listAsesor=data;
+      },
+      error: (err)=>{
+        console.log(err);        
+      }
+    })
   }
 }

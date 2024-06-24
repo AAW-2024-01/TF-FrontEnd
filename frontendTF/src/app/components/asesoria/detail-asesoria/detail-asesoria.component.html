@@ -20,9 +20,35 @@
     </mat-form-field>
     <br>
     <mat-form-field>        
+        <mat-label>Asesor</mat-label>
+        <mat-select formControlName="asesor">
+            <mat-option *ngFor="let asesor of listAsesor" [value]="asesor.id">{{asesor.nombre}} </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>        
         <mat-label>Curso</mat-label>
         <mat-select formControlName="curso">
             <mat-option *ngFor="let curso of listCursos" [value]="curso.id">{{curso.nombre}} </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>        
+        <mat-label>Horario</mat-label>
+        <mat-select formControlName="horario">
+            <mat-option *ngFor="let horario of listHorario" [value]="horario.id">{{horario.dia}} </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>        
+        <mat-label>Hora Inicio</mat-label>
+        <mat-select formControlName="horaInicio">
+            <mat-option *ngFor="let horaInicio of horasInicio"  [value]="horaInicio">{{horaInicio}} </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>        
+        <mat-label>Hora Fin</mat-label>
+        <mat-select formControlName="horaFin">
+            <mat-option *ngFor="let horaFin of horasFin" [value]="horaFin"> {{horaFin}} </mat-option>
         </mat-select>
     </mat-form-field>
     <br>

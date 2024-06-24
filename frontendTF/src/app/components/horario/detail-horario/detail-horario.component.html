@@ -12,16 +12,12 @@
         <input matInput formControlName="id" readonly>
     </mat-form-field>
     <br>
-
     <mat-form-field>
         <mat-label>Dia</mat-label>
         <input matInput formControlName="dia">
     </mat-form-field>
     <span style="color: red;" *ngIf="detalleFormGroup.get('dia')?.hasError('required') && detalleFormGroup.get('dia')?.touched">Este campo es obligatorio</span>
-
     <br>
-    <br>
-
     <mat-form-field>
         <mat-label>Hora de Inicio</mat-label>
         <input matInput formControlName="horaInicio">
@@ -32,11 +28,17 @@
         <input matInput formControlName="horaFin">
     </mat-form-field>
     <br>
+    <mat-form-field>        
+        <mat-label>Asesor</mat-label>
+        <mat-select formControlName="asesor">
+            <mat-option *ngFor="let asesor of listAsesor" [value]="asesor.id">{{asesor.nombre}} </mat-option>
+        </mat-select>
+    </mat-form-field>
 </form>
 
 <button mat-flat-button color="warn" routerLink="/list-horario">Regresar</button>
 <span> | </span>
-<button mat-flat-button color="accent" (click)="grabarCurso()" [disabled]="detalleFormGroup.invalid">
+<button mat-flat-button color="accent" (click)="grabarHorario()" [disabled]="detalleFormGroup.invalid">
 <span *ngIf="id==0">Agregar</span>
 <span *ngIf="id!=0">Actualizar</span>
 

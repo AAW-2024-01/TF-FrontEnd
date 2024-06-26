@@ -1,0 +1,78 @@
+<p>detail-asesoria works!</p>
+
+<span *ngIf="id==0">Registrar los datos de la nueva Asignación</span>
+<span *ngIf="id!=0">Actualizar los datos de la Asignacion</span>
+
+<br>
+<br>
+<form [formGroup]="detalleFormGroup">
+
+    <mat-form-field>        
+        <mat-label>Id</mat-label>
+        <input matInput formControlName="id" readonly>
+    </mat-form-field>
+    <br>
+    <mat-form-field>        
+        <mat-label>Alumno</mat-label>
+        <mat-select formControlName="alumno">
+            <mat-option *ngFor="let alumno of listAlumno" [value]="alumno.id">{{alumno.nombre}} </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>        
+        <mat-label>Asesor</mat-label>
+        <mat-select formControlName="asesor">
+            <mat-option *ngFor="let asesor of listAsesor" [value]="asesor.id">{{asesor.nombre}} </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>        
+        <mat-label>Curso</mat-label>
+        <mat-select formControlName="curso">
+            <mat-option *ngFor="let curso of listCursos" [value]="curso.id">{{curso.nombre}} </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>        
+        <mat-label>Horario</mat-label>
+        <mat-select formControlName="horario">
+            <mat-option *ngFor="let horario of listHorario" [value]="horario.id">{{horario.dia}} </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>        
+        <mat-label>Hora Inicio</mat-label>
+        <mat-select formControlName="horaInicio">
+            <mat-option *ngFor="let horaInicio of horasInicio"  [value]="horaInicio">{{horaInicio}} </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>        
+        <mat-label>Hora Fin</mat-label>
+        <mat-select formControlName="horaFin">
+            <mat-option *ngFor="let horaFin of horasFin" [value]="horaFin"> {{horaFin}} </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Monto</mat-label>
+        <input matInput formControlName="monto">
+    </mat-form-field>
+    <br>
+    <mat-form-field>    
+        <mat-label>Estado</mat-label>
+        <input matInput formControlName="estado">
+    </mat-form-field>    
+    <br>
+    <br>
+    
+
+</form>
+
+<button mat-flat-button color="warn" routerLink="/list-asesoria">Regresar</button>
+<span> | </span>
+<button mat-flat-button color="accent" (click)="grabarAsesoria()" [disabled]="detalleFormGroup.invalid">
+<span *ngIf="id==0">Agregar</span>
+<span *ngIf="id!=0">Actualizar</span>
+
+    
+
+</button>

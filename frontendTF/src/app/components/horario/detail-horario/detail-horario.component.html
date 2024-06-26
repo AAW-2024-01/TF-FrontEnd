@@ -1,1 +1,45 @@
-<p>detail-horario works!</p>
+<h3>Detalle de Horarios</h3>
+
+<span *ngIf="id==0">Registrar los datos del nuevo Curso</span>
+<span *ngIf="id!=0">Actualizar los datos del Curso</span>
+
+<br>
+<br>
+<form [formGroup]="detalleFormGroup">
+
+    <mat-form-field>        
+        <mat-label>Id</mat-label>
+        <input matInput formControlName="id" readonly>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Dia</mat-label>
+        <input matInput formControlName="dia">
+    </mat-form-field>
+    <span style="color: red;" *ngIf="detalleFormGroup.get('dia')?.hasError('required') && detalleFormGroup.get('dia')?.touched">Este campo es obligatorio</span>
+    <br>
+    <mat-form-field>
+        <mat-label>Hora de Inicio</mat-label>
+        <input matInput formControlName="horaInicio">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <mat-label>Hora de Fin</mat-label>
+        <input matInput formControlName="horaFin">
+    </mat-form-field>
+    <br>
+    <mat-form-field>        
+        <mat-label>Asesor</mat-label>
+        <mat-select formControlName="asesor">
+            <mat-option *ngFor="let asesor of listAsesor" [value]="asesor.id">{{asesor.nombre}} </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
+
+<button mat-flat-button color="warn" routerLink="/list-horario">Regresar</button>
+<span> | </span>
+<button mat-flat-button color="accent" (click)="grabarHorario()" [disabled]="detalleFormGroup.invalid">
+<span *ngIf="id==0">Agregar</span>
+<span *ngIf="id!=0">Actualizar</span>
+
+</button>

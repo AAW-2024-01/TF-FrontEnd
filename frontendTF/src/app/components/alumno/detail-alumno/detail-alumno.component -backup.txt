@@ -1,0 +1,36 @@
+<h2 style="background-color: #808080;
+            margin: 0;
+            font-size: 1em;
+            text-align: center;
+            color: white;">Editar Alumno</h2>
+<mat-dialog-content id="contenedor">
+    <article id="cuerpo">
+        <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Apellido</mat-label>
+            <input matInput>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Ciclo</mat-label>
+            <mat-select>
+                <mat-option value="one">1</mat-option>
+                <mat-option value="two">2</mat-option>
+                <mat-option value="three">3</mat-option>
+                <mat-option value="four">4</mat-option>
+                <mat-option value="five">5</mat-option>
+                <mat-option value="six">6</mat-option>
+                <mat-option value="seven">7</mat-option>
+                <mat-option value="eight">8</mat-option>
+                <mat-option value="nine">9</mat-option>
+                <mat-option value="ten">10</mat-option>
+            </mat-select>
+          </mat-form-field>
+    </article>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Guardar</button>
+</mat-dialog-actions>

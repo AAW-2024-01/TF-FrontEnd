@@ -12,7 +12,7 @@ export class AsesorService {
   constructor(private clienteHTTP:HttpClient) { }
 
   //METODOS CRUD DEL BACKEND
-  getAllAsesores(){
+  getAllAsesors(){
     return this.clienteHTTP.get<Asesor[]>(this.servidor+"/"+this.recurso);
   }
   getAsesor(id:number){

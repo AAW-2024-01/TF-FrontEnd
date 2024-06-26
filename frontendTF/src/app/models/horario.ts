@@ -1,10 +1,5 @@
-import { Asesor } from "./asesor";
-
 export interface Horario{
     id:number;
-    dia:string;
-    horaInicio:string;
-    horaFin:string;
-    asesor:Asesor;
-    
+    nombre:string;
+    ciclo:number;
 }    

@@ -8,20 +8,16 @@ import { Horario } from '../models/horario';
 export class HorarioService {
 
   servidor:string = "http://localhost:8080/api";
-  recurso:string = "horario"
+  recurso:string = "asesor"
   constructor(private clienteHTTP:HttpClient) { }
 
   //METODOS CRUD DEL BACKEND
   getAllHorarios(){
     return this.clienteHTTP.get<Horario[]>(this.servidor+"/"+this.recurso);
   }
-  getHorariosPorAsesorId(id:number){
-    return this.clienteHTTP.get<Horario[]>(this.servidor+"/"+this.recurso + "/asesor" + "/" + id.toString());
-  }
   getHorario(id:number){
     return this.clienteHTTP.get<Horario>(this.servidor+"/"+this.recurso + "/" + id.toString());
   }
-  
   postHorario(alumno:Horario){
     return this.clienteHTTP.post<Horario>(this.servidor+"/"+this.recurso,alumno);
   }

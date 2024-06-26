@@ -18,6 +18,11 @@ import { DetailAlumnoComponent } from './components/alumno/detail-alumno/detail-
 import { DetailAsesorComponent } from './components/asesor/detail-asesor/detail-asesor.component';
 import { PerfilAsesorComponent } from './components/asesor/perfil-asesor/perfil-asesor.component';
 
+import { LoginComponent } from './components/login/login.component';
+import { ListAsesoriaComponent } from './components/asesoria/list-asesoria/list-asesoria.component';
+import { DetailAsesoriaComponent } from './components/asesoria/detail-asesoria/detail-asesoria.component';
+
+
 const routes: Routes = [
 
   {path:"list-alumno",component:ListAlumnoComponent},
@@ -26,6 +31,10 @@ const routes: Routes = [
   {path:"detail-canal-contacto",component:DetailCanalContactoComponent},
   {path:"list-curso",component:ListCursoComponent},
   {path:"detail-curso",component:DetailCursoComponent},
+
+
+  {path:"edit-curso/:id",component:DetailCursoComponent},
+
   {path:"list-horario",component:ListHorarioComponent},
   {path:"detail-horario",component:DetailHorarioComponent},
   {path:"list-opinion",component:ListOpinionComponent},

@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Curso } from '../../../models/curso';
 import { CursoService } from '../../../services/curso.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmacionComponent } from '../../confirmacion/confirmacion.component';
+
 
 @Component({
   selector: 'app-list-curso',
@@ -12,14 +16,20 @@ export class ListCursoComponent {
   dataSource!: MatTableDataSource<Curso>
   displayedColumns: string[]=["id","nombre","ciclo"];
   cantidadRegistros: number=0;
-  constructor(private serviceCurso:CursoService){};
+  constructor(private cursoService:CursoService,private _snackBar:MatSnackBar, private confirmador: MatDialog){}
 
-  ngOnInit(): void{
-    this.cargarLista();
+  applyFilter(evento:Event){
+    const filterValue = (evento.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  cargarLista(){
-    this.serviceCurso.getAllCursos().subscribe({
-      next: (data: Curso[])=>{
+
+  ngOnInit(): void {
+    this.cargaAlumnos();
+    
+  }
+  cargaAlumnos(){
+    this.cursoService.getAllCursos().subscribe({
+      next:(data:Curso[])=>{
         this.dataSource = new MatTableDataSource(data);
         this.cantidadRegistros = data.length;
       },
@@ -28,9 +38,24 @@ export class ListCursoComponent {
       }
     })
   }
-  filtrar(evento: Event){
-    const filterValue =(evento.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    this.cantidadRegistros = this.dataSource.filteredData.length;
+
+  eliminar(id: number){
+    
+    let respuestaDialog = this.confirmador.open(ConfirmacionComponent);  
+    
+    respuestaDialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.cursoService.deleteCurso(id).subscribe({
+          next: ()=>{
+            this.cargaAlumnos();
+          },
+          error:(err)=> {
+            console.log(err);
+            this._snackBar.open("El curso no se eliminó pues existen otros registros que dependen de este","OK",{duration: 2000});
+          },
+        });
+      }    
+    });
+
   }
 }

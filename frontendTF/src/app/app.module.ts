@@ -25,6 +25,12 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PerfilAlumnoComponent } from './components/alumno/perfil-alumno/perfil-alumno.component';
 import { PerfilAsesorComponent } from './components/asesor/perfil-asesor/perfil-asesor.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegistrarComponent } from './components/registrar/registrar.component';
+import { ConfirmacionComponent } from './components/confirmacion/confirmacion.component';
+import { ListAsesoriaComponent } from './components/asesoria/list-asesoria/list-asesoria.component';
+import { DetailAsesoriaComponent } from './components/asesoria/detail-asesoria/detail-asesoria.component';
+
 
 
 @NgModule({
@@ -47,6 +53,11 @@ import { PerfilAsesorComponent } from './components/asesor/perfil-asesor/perfil-
     FooterComponent,
     PerfilAlumnoComponent,
     PerfilAsesorComponent,
+    LoginComponent,
+    RegistrarComponent,
+    ConfirmacionComponent,
+    ListAsesoriaComponent,
+    DetailAsesoriaComponent
   ],
   imports: [
     BrowserModule,

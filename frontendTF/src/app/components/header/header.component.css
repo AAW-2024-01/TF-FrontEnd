@@ -1,6 +1,6 @@
 .contenedor_header{
     background: #353FF2;
-    width: 80%;
+    width: 100%;
     height: 50px;
     margin: auto;
     padding: 40px;
@@ -45,4 +45,17 @@
 #icon_menu{
     color: #fff;
 }
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Optional: aligns buttons to the start of the column */
+}
 
+.button-wrapper {
+    width: 100%; /* Ensure the buttons take up the full width of the menu */
+}
+
+.my-button {
+    width: 100%; /* Ensure the buttons take up the full width of the container */
+    margin: 10px 0; /* Add space between the buttons */
+}

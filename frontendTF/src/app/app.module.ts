@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -27,10 +28,10 @@ import { PerfilAsesorComponent } from './components/asesor/perfil-asesor/perfil-
 import { LoginComponent } from './components/login/login.component';
 import { RegistrarComponent } from './components/registrar/registrar.component';
 import { ConfirmacionComponent } from './components/confirmacion/confirmacion.component';
-import { DetailAsesoriaComponent } from './components/detail-asesoria/detail-asesoria.component';
-import { ListAsesoriaComponent } from './components/list-asesoria/list-asesoria.component';
-import { DetailAsesorCursoComponent } from './components/detail-asesor-curso/detail-asesor-curso.component';
-import { ListAsesorCursoComponent } from './components/list-asesor-curso/list-asesor-curso.component';
+import { ListAsesoriaComponent } from './components/asesoria/list-asesoria/list-asesoria.component';
+import { DetailAsesoriaComponent } from './components/asesoria/detail-asesoria/detail-asesoria.component';
+import { ListAsesorCursoComponent } from './components/asesor-curso/list-asesor-curso/list-asesor-curso.component';
+import { DetailAsesorCursoComponent } from './components/asesor-curso/detail-asesor-curso/detail-asesor-curso.component';
 
 
 @NgModule({
@@ -56,10 +57,10 @@ import { ListAsesorCursoComponent } from './components/list-asesor-curso/list-as
     LoginComponent,
     RegistrarComponent,
     ConfirmacionComponent,
-    DetailAsesoriaComponent,
     ListAsesoriaComponent,
-    DetailAsesorCursoComponent,
+    DetailAsesoriaComponent,
     ListAsesorCursoComponent,
+    DetailAsesorCursoComponent
   ],
   imports: [
     BrowserModule,

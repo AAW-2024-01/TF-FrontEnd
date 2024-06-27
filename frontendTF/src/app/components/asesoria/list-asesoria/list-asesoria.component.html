@@ -28,6 +28,15 @@
         <td mat-cell *matCellDef="let element"> {{element.curso?.nombre}} </td>
       </ng-container>
   
+      <ng-container matColumnDef="horaInicio">
+        <th mat-header-cell *matHeaderCellDef> Hora de Inicio </th>
+        <td mat-cell *matCellDef="let element"> {{ element.horaInicio}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="horaFin">
+        <th mat-header-cell *matHeaderCellDef> Hora de Termino </th>
+        <td mat-cell *matCellDef="let element"> {{ element.horaFin}} </td>
+      </ng-container>
 
       <ng-container matColumnDef="monto">
         <th mat-header-cell *matHeaderCellDef> Monto </th>

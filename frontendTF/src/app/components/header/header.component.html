@@ -8,15 +8,13 @@
         <div class="tipo_usuario">
           <h2>{{currentText}}</h2>
         </div>
-        <a (click)="logout()" style="cursor: pointer;" *ngIf="usuarioLogeado()">
-            <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon" >logout</mat-icon>
-          </a>
-        <div class="div_home">
+        
+        <!-- <div class="div_home">
             <a routerLink="/home">
                 <span>HOME</span>
                 <mat-icon>home</mat-icon>
             </a>
-        </div>
+        </div> -->
         <div class="boton_3p">
             
             <button id="icon_menu" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -30,6 +28,15 @@
                           <span> Ver mi Perfil</span>
                       </button>
                   </div>
+                  <div class="button-wrapper">
+                    <button class="my-button" mat-button (click)="openDialog()">
+                        <a (click)="logout()" style="cursor: pointer;" *ngIf="usuarioLogeado()" >
+                            <mat-icon id="logout" class="example-icon" aria-hidden="false" aria-label="Example user verified icon" >logout</mat-icon>
+                        </a>
+                        <span>logout</span>
+                    </button>
+                </div>
+                  
                   <div class="button-wrapper">
                       <button class="my-button" mat-button (click)="toggleText()">
                           <img id="teacher" src="/teacher.svg">

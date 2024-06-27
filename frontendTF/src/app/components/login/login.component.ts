@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from '../../models/user';
 import { HttpErrorResponse } from '@angular/common/http';
-import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-login',
@@ -42,13 +41,10 @@ export class LoginComponent {
         password: this.loginFormGroup.get("password")!.value,
         type: ""    
       }
+
       this.servicioUsuario.logearUsuario(usuario).subscribe({
         next: (data)=>{
-          this.enrutador.navigate(["/home"]);  
-          //en el header que aparesca logout                  
-
-
-
+          this.enrutador.navigate(["/home"]);                    
         },
         error:(err:HttpErrorResponse)=>{
           console.log(err);

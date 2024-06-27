@@ -8,6 +8,9 @@
         <div class="tipo_usuario">
           <h2>{{currentText}}</h2>
         </div>
+        <a (click)="logout()" style="cursor: pointer;" *ngIf="usuarioLogeado()">
+            <mat-icon class="example-icon" aria-hidden="false" aria-label="Example user verified icon" >logout</mat-icon>
+          </a>
         <div class="div_home">
             <a routerLink="/home">
                 <span>HOME</span>

@@ -7,25 +7,24 @@
 <br>
 <form [formGroup]="detalleFormGroup">
 
-    <mat-form-field>        
+    <mat-form-field *ngIf="id!=0">        
         <mat-label>Id</mat-label>
-        <input matInput formControlName="id" readonly>
+        <input matInput  formControlName="id" readonly>
     </mat-form-field>
     <br>
-    <mat-form-field>        
-        <mat-label>Asesor</mat-label>
-        <mat-select formControlName="asesor">
-            <mat-option *ngFor="let asesor of listAsesor" [value]="asesor.id">{{asesor.nombre}} </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <br>
+    <!-- <mat-form-field>        
+    <mat-label>Asesor</mat-label>
+    <mat-select formControlName="asesor">
+        <mat-option *ngFor="let asesor of listAsesor" [value]="asesor.id">{{asesor.nombre}} </mat-option>
+    </mat-select>
+</mat-form-field> 
     <mat-form-field>        
         <mat-label>Curso</mat-label>
         <mat-select formControlName="curso">
             <mat-option *ngFor="let curso of listCursos" [value]="curso.id">{{curso.nombre}} </mat-option>
         </mat-select>
     </mat-form-field>
-    <br>
+    <br>-->
     <mat-form-field>
         <mat-label>Nombre</mat-label>
         <input matInput formControlName="nombre">
@@ -38,7 +37,7 @@
     </mat-form-field>
     <br>
     <mat-form-field>
-        <mat-label>Nivel</mat-label>
+        <mat-label>Nivel de Dominio</mat-label>
         <input matInput formControlName="nivelDominio">
     </mat-form-field>
 </form>

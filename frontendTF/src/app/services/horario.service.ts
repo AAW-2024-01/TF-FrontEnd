@@ -16,10 +16,10 @@ export class HorarioService {
     return this.clienteHTTP.get<Horario[]>(this.servidor+"/"+this.recurso);
   }
   getHorariosPorAsesorId(id:number){
-    return this.clienteHTTP.get<Horario[]>(this.servidor+"/"+this.recurso + "/asesor" + "/" + id.toString());
+    return this.clienteHTTP.get<Horario[]>(this.servidor+"/"+this.recurso + "/asesor" + "/" + id!.toString());
   }
   getHorario(id:number){
-    return this.clienteHTTP.get<Horario>(this.servidor+"/"+this.recurso + "/" + id.toString());
+    return this.clienteHTTP.get<Horario>(this.servidor+"/"+this.recurso + "/" + id!.toString());
   }
   
   postHorario(alumno:Horario){

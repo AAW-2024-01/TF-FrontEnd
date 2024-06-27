@@ -14,7 +14,12 @@ import { Horario } from '../../../models/horario';
 import { HorarioService } from '../../../services/horario.service';
 import { AsesorCursoService } from '../../../services/asesor-curso.service';
 import { AsesorCurso } from '../../../models/asesor-curso';
+import { UserService } from '../../../services/user.service';
 
+interface Estado {
+  value: string;
+  viewValue: string;
+}
 @Component({
   selector: 'app-detail-asesoria',
   templateUrl: './detail-asesoria.component.html',
@@ -28,28 +33,31 @@ export class DetailAsesoriaComponent {
   listAsesor:Asesor[]=[];
   listHorario:Horario[]=[];
   //el idAsesor se va jalar del local storage
-  idAsesor:number=2;
+  idAsesor:number=0;
   
   horasInicio: any[] = [];
-  horasFin: any[] = [];
-  
+  horasFin:any;
+  dias:string[]=[];
 
+  estados: Estado[] = [
+    {value: 'RESERVADA', viewValue: 'RESERVADA'},
+    {value: 'REALIZADA', viewValue: 'REALIZADA'},
+    {value: 'CANCELADA', viewValue: 'CANCELADA'},
+  ];
   constructor (private asesoriaService: AsesoriaService, private formBuilder:FormBuilder,
                private enrutador: Router, private _snackBar: MatSnackBar, private ruta:ActivatedRoute,
             private cursoService: CursoService, private alumnoService: AlumnoService,
             private asesorService: AsesorService, private horarioService:HorarioService,
-            private asesorCursoService: AsesorCursoService) {};
+            private asesorCursoService: AsesorCursoService, private userService:UserService) {};
 
 
   ngOnInit(){
+    this.idAsesor = this.userService.getId()!;
     this.cargaCursos();
     this.cargaAlumno();
     this.cargaAsesor();
     this.cargaHorario();
     this.crearFormGrup();
-    this.detalleFormGroup.get("horario")!.valueChanges.subscribe(value => {
-      this.actualizarHoras(value);
-    });
   }
 
   crearFormGrup(){
@@ -94,7 +102,7 @@ export class DetailAsesoriaComponent {
 
   }
   cargaCursos(){
-    this.asesorCursoService.getAllAsesorCurso().subscribe({
+    this.asesorCursoService.getAsesorCursoByAsesorId(this.idAsesor).subscribe({
       next:(data:AsesorCurso[])=>{
         //this.listCursos=data;
         this.listCursos =data.filter(asesorCurso=>asesorCurso.asesor.id===this.idAsesor)
@@ -126,25 +134,46 @@ export class DetailAsesoriaComponent {
     })
   }
   cargaHorario(){
-    this.horarioService.getAllHorarios().subscribe({
+    this.horarioService.getHorariosPorAsesorId(this.idAsesor).subscribe({
       next:(data:Horario[])=>{
         this.listHorario=data;
-      },
-      error: (err)=>{
-        console.log(err);        
-      }
-    })
-  }
-  actualizarHoras(horarioId: number) {
-    const horarioSeleccionado = this.listHorario.find(horario => horario.id === horarioId);
+        // Obtener días únicos para usarlos como opciones en el select de horario
+        this.dias = Array.from(new Set(data.map(horario => horario.dia)));
 
-    if (horarioSeleccionado) {
-      this.horasInicio = horarioSeleccionado.horaInicio.split(','); // Convertir string a arreglo de strings
-      this.horasFin = horarioSeleccionado.horaFin.split(','); // Convertir string a arreglo de strings
-    } else {
-      this.horasInicio = [];
-      this.horasFin = [];
+        // Inicialmente mostrar horarios del primer día
+        if (this.dias.length > 0) {
+        this.filtrarHorasPorDia(this.dias[0]); // Filtrar por el primer día
+        }
+
+        // Escuchar cambios en el select de horario para filtrar horas inicio y fin
+        this.detalleFormGroup.get('horario')!.valueChanges.subscribe(selectedHorarioId => {
+        const horarioSeleccionado = data.find(horario => horario.id === selectedHorarioId);
+        if (horarioSeleccionado) {
+          this.filtrarHorasPorDia(horarioSeleccionado.dia);
+        }
+      });
+      //para que se muestre la hora fin de la hora inicio respectivamente
+      this.detalleFormGroup.get('horaInicio')!.valueChanges.subscribe(selectedHoraInicio => {
+        if (selectedHoraInicio) {
+          // Filtrar la hora fin correspondiente a la hora inicio seleccionada
+          const horarioSeleccionado = data.find(horario => horario.horaInicio === selectedHoraInicio);
+          if (horarioSeleccionado) {
+            this.horasFin = [horarioSeleccionado.horaFin];
+          }
+        }
+      });
+    },
+    error: (err) => {
+      console.log(err);
     }
+  });
   }
 
+  filtrarHorasPorDia(diaSeleccionado: string) {
+    // Filtrar horas de inicio y fin por el día seleccionado
+    const horariosDelDia = this.listHorario.filter(horario => horario.dia === diaSeleccionado);
+    this.horasInicio = horariosDelDia.map(horario => horario.horaInicio);
+    this.horasFin = horariosDelDia.map(horario => horario.horaFin);
+  }
+  
 }

@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AsesorService } from '../../../services/asesor.service';
 import { CursoService } from '../../../services/curso.service';
 import { AsesorCurso } from '../../../models/asesor-curso';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-detail-asesor-curso',
@@ -18,30 +19,50 @@ export class DetailAsesorCursoComponent {
 
   detalleFormGroup!:FormGroup;
   id:number=0;
-  listCursos:Curso[]=[];
-  listAsesor:Asesor[]=[];
-  asesorId:number=0;
+  //listCursos:Curso[]=[];
+  //listAsesor:Asesor[]=[];
   
 
   constructor (private asesorCursoService: AsesorCursoService, private formBuilder:FormBuilder,
                private enrutador: Router, private _snackBar: MatSnackBar, private ruta:ActivatedRoute,
-            private cursoService: CursoService,private asesorService: AsesorService) {};
+               private cursoService: CursoService,private asesorService: AsesorService, private userService: UserService) {};
 
 
   ngOnInit(){
-    //sacar del local storage para que se agregue los cursos solo en ese asesor
-    //this.asesorId = this.authService.getAsesorId();
-    this.cargaCursos();
-    this.cargaAsesor();
+    //this.cargaCursos();
+    //this.cargaAsesor();
     this.crearFormGrup();
+    this.id = this.ruta.snapshot.params["id"];
+    if (this.id!=0 && this.id!=undefined) {
+      this.asesorCursoService.getAsesorCurso(this.id).subscribe({
+        next: (data:AsesorCurso)=>{
+          this.detalleFormGroup.get("id")?.setValue(data.id);
+          this.detalleFormGroup.get("nivelDominio")?.setValue(data.nivelDominio);
+          this.cursoService.getCurso(data.curso.id).subscribe({
+            next: (cursoData: Curso) => {
+              this.detalleFormGroup.get("nombre")?.setValue(cursoData.nombre);
+              this.detalleFormGroup.get("ciclo")?.setValue(cursoData.ciclo);
+            },
+            error: (err)=>{
+              console.log("error cargando los datos de curso",err);
+            }
+          });
+        },
+        error:(err)=>{
+          console.log("errro cargando los datos de asesor-curso ",err);
+        }
+      })
+    } else {
+      this.id=0;
+    }
   }
 
   crearFormGrup(){
     this.detalleFormGroup = this.formBuilder.group({
       id:[""],
       nivelDominio:[""],
-      asesor:[""],
-      curso:[""], 
+      //asesor:[""],
+      //curso:[""], 
       nombre:[""],
       ciclo:[""]  
     });    
@@ -49,16 +70,16 @@ export class DetailAsesorCursoComponent {
 
   grabarAsesorCurso(){
 
-    const cursoExistenteId = this.detalleFormGroup.get("curso")!.value;
+    //const cursoExistenteId = this.detalleFormGroup.get("curso")!.value;
     const nombreNuevoCurso = this.detalleFormGroup.get("nombre")!.value;
     const cicloNuevoCurso = this.detalleFormGroup.get("ciclo")!.value;
 
-    if(cursoExistenteId){
+    /*if(cursoExistenteId){
       const nuevoAsesorCurso:AsesorCurso={
         id: parseInt(this.detalleFormGroup.get("id")!.value),
         nivelDominio:parseInt(this.detalleFormGroup.get("nivelDominio")!.value),
-        //asesor: { id: this.asesorId, nombre: "", apellido: "", tarifa: 0, experiencia: "" },
-        asesor:{id:this.detalleFormGroup.get("asesor")!.value, nombre:"",apellido:"",tarifa:0,experiencia:""},
+        asesor: { id: parseInt(this.asesorId), nombre: "", apellido: "", tarifa: 0, experiencia: "" },
+        //asesor:{id:this.detalleFormGroup.get("asesor")!.value, nombre:"",apellido:"",tarifa:0,experiencia:""},
         curso:{id: this.detalleFormGroup.get("curso")!.value, nombre:"", ciclo:0},
       };    
 
@@ -72,7 +93,8 @@ export class DetailAsesorCursoComponent {
         console.log(err);
       }
     });
-    } else if(nombreNuevoCurso && cicloNuevoCurso){
+    } else */
+    if(nombreNuevoCurso && cicloNuevoCurso){
       const nuevoCurso: Curso = {
         id: 0,  // Se asume que el backend asignará un ID
         nombre: nombreNuevoCurso,
@@ -83,7 +105,8 @@ export class DetailAsesorCursoComponent {
           const nuevoAsesorCurso:AsesorCurso = { 
               id: parseInt(this.detalleFormGroup.get("id")!.value),
               nivelDominio: parseInt(this.detalleFormGroup.get("nivelDominio")!.value),
-              asesor: { id: this.detalleFormGroup.get("asesor")!.value, nombre: "", apellido: "", tarifa: 0, experiencia: "" },
+              asesor: { id: this.userService.getId()!, nombre: "", apellido: "", tarifa: 0, experiencia: "" },
+              //asesor: { id: this.detalleFormGroup.get("asesor")!.value, nombre: "", apellido: "", tarifa: 0, experiencia: "" },
               curso: data
           };
           this.asesorCursoService.postAsesorCurso(nuevoAsesorCurso).subscribe({
@@ -103,11 +126,11 @@ export class DetailAsesorCursoComponent {
           }
         });
       }else{
-        this._snackBar.open("Seleccione un curso existente o complete los datos del nuevo curso", "OK", { duration: 2000 });
+        this._snackBar.open("Complete los datos del nuevo curso", "OK", { duration: 2000 });
       }
   }
 
-  cargaCursos(){
+  /*cargaCursos(){
     this.cursoService.getAllCursos().subscribe({
       next:(data:Curso[])=>{
         this.listCursos=data;
@@ -126,6 +149,6 @@ export class DetailAsesorCursoComponent {
         console.log(err);        
       }
     })
-  }
+  }*/
 }
 

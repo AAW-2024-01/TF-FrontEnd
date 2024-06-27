@@ -14,6 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class LoginComponent {
   loginFormGroup!: FormGroup;
   mostrarPassword:boolean=false;
+  idAsesor:number=0;
 
 
   constructor (private servicioUsuario: UserService, private formBuilder:FormBuilder,

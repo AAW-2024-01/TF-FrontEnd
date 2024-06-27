@@ -9,6 +9,7 @@ import { AsesorService } from '../../../services/asesor.service';
 import { AsesorCursoService } from '../../../services/asesor-curso.service';
 import { AsesorCurso } from '../../../models/asesor-curso';
 import { Asesor } from '../../../models/asesor';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-list-asesor-curso',
@@ -16,12 +17,13 @@ import { Asesor } from '../../../models/asesor';
   styleUrl: './list-asesor-curso.component.css'
 })
 export class ListAsesorCursoComponent {
-  displayedColumns:string[]=["id","nombre","ciclo","asesor","acciones"];
+  displayedColumns:string[]=["id","nombre","ciclo","nivelDominio","acciones"];
   dataSource!: MatTableDataSource<AsesorCurso>;
-  listCursos:Curso[]=[];
+  id:number=0;
+
   constructor(private cursoService:CursoService,private _snackBar:MatSnackBar, 
               private confirmador: MatDialog, private asesorService:AsesorService,
-              private asesesorCursoService:AsesorCursoService){}
+              private asesorCursoService:AsesorCursoService, private userService:UserService){}
 
   applyFilter(evento:Event){
     const filterValue = (evento.target as HTMLInputElement).value;
@@ -29,11 +31,12 @@ export class ListAsesorCursoComponent {
   }
 
   ngOnInit(): void {
+    this.id = this.userService.getId()!;
     this.cargaAsesorCurso();
     
   }
   cargaAsesorCurso(){
-    this.asesesorCursoService.getAllAsesorCurso().subscribe({
+    this.asesorCursoService.getAsesorCursoByAsesorId(this.id).subscribe({
       next:(data:AsesorCurso[])=>{
         this.dataSource = new MatTableDataSource(data);
       },
@@ -46,7 +49,7 @@ export class ListAsesorCursoComponent {
     let respuestaDialog = this.confirmador.open(ConfirmacionComponent);  
     respuestaDialog.afterClosed().subscribe(result => {
       if (result) {
-        this.cursoService.deleteCurso(id).subscribe({
+        this.asesorCursoService.deleteAsesorCurso(id).subscribe({
           next: ()=>{
             this.cargaAsesorCurso();
           },

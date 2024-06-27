@@ -25,6 +25,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PerfilAlumnoComponent } from './components/alumno/perfil-alumno/perfil-alumno.component';
 import { PerfilAsesorComponent } from './components/asesor/perfil-asesor/perfil-asesor.component';
 import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { RegisterComponent } from './components/register/register.component';
     PerfilAlumnoComponent,
     PerfilAsesorComponent,
     RegisterComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

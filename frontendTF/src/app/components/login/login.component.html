@@ -1,1 +1,38 @@
-<p>login works!</p>
+<div>
+    <div><h2>Bienvendio usuario!</h2></div>
+</div>
+
+
+<form [formGroup]="loginForm">
+
+    <mat-form-field>
+        <mat-label>Usuario</mat-label>
+        <input matInput formControlName="userName" placeholder="Ingrese un nombre de usuario...">
+        <div *ngIf="loginForm.get('userName')?.hasError('required') && loginForm.get('userName')?.touched">
+            <span style="color: red">Este campo es obligatorio</span>
+        </div>
+    </mat-form-field>
+    <br><br>
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" placeholder="Ingrese un password..." [type]=" hide?'password':'text' ">
+        <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+            <span style="color: red">Este campo es obligatorio</span>
+        </div>
+    </mat-form-field>
+    <button  mat-icon-button  (click)="hide = !hide" >
+        <mat-icon>{{hide?"visibility_off":"visibility"}}</mat-icon>
+    </button>
+
+
+    <br><br>
+    <button mat-raised-button color="primary" (click)="loginUser()" [disabled]="loginForm.invalid" >Ingresar</button>
+
+    <button mat-raised-button color="secondary" (click)="cancel()">Cancelar</button>
+    <br><br>
+    <span>Si no tiene usuario aún: </span>
+    <B>
+        <a routerLink="/register">Regístrese aquí</a>
+    </B>
+
+</form>

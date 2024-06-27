@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Asesor } from '../../../models/asesor';
 import { AsesorService } from '../../../services/asesor.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-detail-horario',
@@ -19,7 +20,7 @@ export class DetailHorarioComponent {
 
   constructor (private servicioHorario: HorarioService, private formBuilder:FormBuilder,
                private enrutador: Router, private _snackBar: MatSnackBar, 
-               private ruta:ActivatedRoute, private asesorService:AsesorService) {};
+               private ruta:ActivatedRoute, private asesorService:AsesorService, private userService: UserService) {};
   
   ngOnInit(){
     this.cargaAsesor();
@@ -58,7 +59,7 @@ export class DetailHorarioComponent {
       dia: this.detalleFormGroup.get("dia")!.value,
       horaInicio: this.detalleFormGroup.get("horaInicio")!.value,
       horaFin: this.detalleFormGroup.get("horaFin")!.value,
-      asesor:{id:this.detalleFormGroup.get("asesor")!.value, nombre:"",apellido:"",tarifa:0,experiencia:""}
+      asesor:{id:this.userService.getId()!, nombre:"",apellido:"",tarifa:0,experiencia:""}
     };
     this.servicioHorario.postHorario(nuevoHorario).subscribe({
       next:(data:Horario) => {

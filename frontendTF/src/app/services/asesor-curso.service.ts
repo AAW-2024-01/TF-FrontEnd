@@ -17,10 +17,10 @@ export class AsesorCursoService {
     return this.clienteHTTP.get<AsesorCurso[]>(this.servidor+"/"+this.recurso);
   }
   getAsesorCurso(id:number){
-    return this.clienteHTTP.get<AsesorCurso>(this.servidor+"/"+this.recurso + "/" + id.toString());
+    return this.clienteHTTP.get<AsesorCurso>(this.servidor+"/"+this.recurso + "/" + id!.toString());
   }
-  getCursosXAsesorID(id:number){
-    return this.clienteHTTP.get<Curso[]>(this.servidor+"/"+this.recurso + "/curso" + "/asesor" + "/" + id.toString());
+  getAsesorCursoByAsesorId(id:number){
+    return this.clienteHTTP.get<AsesorCurso[]>(this.servidor+"/"+this.recurso + "/asesor" + "/" + id.toString());
   }
   postAsesorCurso(asesorCurso:AsesorCurso){
     return this.clienteHTTP.post<AsesorCurso>(this.servidor+"/"+this.recurso,asesorCurso);

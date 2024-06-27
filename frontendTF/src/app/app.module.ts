@@ -32,6 +32,7 @@ import { ListAsesoriaComponent } from './components/asesoria/list-asesoria/list-
 import { DetailAsesoriaComponent } from './components/asesoria/detail-asesoria/detail-asesoria.component';
 import { ListAsesorCursoComponent } from './components/asesor-curso/list-asesor-curso/list-asesor-curso.component';
 import { DetailAsesorCursoComponent } from './components/asesor-curso/detail-asesor-curso/detail-asesor-curso.component';
+import { RegisterComponent } from './components/register/register.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { DetailAsesorCursoComponent } from './components/asesor-curso/detail-ase
     ListAsesoriaComponent,
     DetailAsesoriaComponent,
     ListAsesorCursoComponent,
-    DetailAsesorCursoComponent
+    DetailAsesorCursoComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

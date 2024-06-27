@@ -1,1 +1,27 @@
-<p>register works!</p>
+<h3>Registrese como nuevo usuario</h3>
+
+<form [formGroup]="registerFormGroup">
+
+    <mat-form-field>
+        <mat-label>Usuario</mat-label>
+        <input matInput formControlName="userName">
+    </mat-form-field>
+    <span style="color: red;" *ngIf="registerFormGroup.get('userName')?.hasError('required') && registerFormGroup.get('userName')?.touched">Este campo es obligatorio</span>
+    <span style="color: red;" *ngIf="registerFormGroup.get('userName')?.hasError('minlength') && registerFormGroup.get('userName')?.touched">Este campo requiere un minimo de 5 caracteres</span>
+    <br>
+    <br>
+    <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" [type]="mostrarPassword?'text':'password'">
+    </mat-form-field>
+    <button (click)="mostrarPassword=!mostrarPassword" >
+        <mat-icon>{{mostrarPassword?"visibility_off":"visibility"}}</mat-icon>
+    </button>
+    <span style="color: red;" *ngIf="registerFormGroup.get('password')?.hasError('required') && registerFormGroup.get('password')?.touched">Este campo es obligatorio</span>
+    <span style="color: red;" *ngIf="registerFormGroup.get('password')?.hasError('minlength') && registerFormGroup.get('password')?.touched">Este campo requiere un minimo de 5 caracteres</span>
+    <br>
+    <br>
+    <button mat-flat-button color="warn" routerLink="/">Ya estoy registrado</button>
+    <span> | </span>
+    <button mat-flat-button color="accent" (click)="registrarUsuario()">Registrar</button>
+</form>

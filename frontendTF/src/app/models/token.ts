@@ -1,5 +1,5 @@
 export interface Token {
-    jwtToken: string;
-    id: number;
-    authorities: string;
-} 
+    jwtToken: string,
+    id: number,
+    authorities: string
+}

@@ -1,57 +1,72 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { User } from '../models/user';
-import { Token } from '../models/token';
 import { tap } from 'rxjs';
+import { Token } from '../models/token';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  ruta_servidor = "http://localhost:8080/api";
-  recurso = "users";
+  servidor:string="http://localhost:8080/api";
+  recurso:string="users";
 
-  constructor(private http:HttpClient) { }
+  constructor(private clienteHTTP: HttpClient) { }
 
-  getUser(id: number) {
-    return this.http.get<User>(this.ruta_servidor+"/"+this.recurso+"/"+id.toString());
+  listaUsuarios(){
+    return this.clienteHTTP.get<User[]>(this.servidor + "/" + this.recurso);
   }
 
-  addUser(user: User) {
-    return this.http.post<User>(this.ruta_servidor+"/"+this.recurso+"/register", user);
+  registrarUsuario(Usuario: User){
+    return this.clienteHTTP.post<User>(this.servidor + "/" + this.recurso+"/"+"register", Usuario);
   }
 
-  login(user: User) {
-    this.logout();
-    return this.http.post<Token>(this.ruta_servidor+"/"+this.recurso+"/login",user).pipe(
-      tap((res)=> {
-        localStorage.setItem('token', res.jwtToken);
-        localStorage.setItem('user_id', res.id.toString());
-        localStorage.setItem('authorities', res.authorities.toString());
+  detalleUsuario(id: number){
+    return this.clienteHTTP.get<User>(this.servidor +  "/"  + this.recurso +  "/" + id.toString() );
+  }
 
+  eliminarUsuario(id: number) {
+    return this.clienteHTTP.delete<User>(this.servidor +  "/"  + this.recurso +  "/" + id.toString() );
+  }
+
+  logearUsuario(usuario: User){
+    this.logoutUsuario();
+    return this.clienteHTTP.post<Token>(this.servidor + "/" + this.recurso+"/"+"login", usuario).pipe( 
+      tap((data)=>{
+        localStorage.setItem("token",data.jwtToken);
+        localStorage.setItem("id",data.id.toString());
+        localStorage.setItem("authorities",data.authorities);
       })
     );
   }
 
-  getCurrentUserId(): number | null {
-    let userId: string | null = localStorage.getItem('user_id');
-    return userId != null ?  parseInt(userId) : null;
-  }
-
-  getCurrentToken(): string | null {
-    let token: string | null = localStorage.getItem('token');
-    return token != null ?  token : null;
-  }
-
-  getCurrentAuthorities(): string | null {
-    let authorities: string | null = localStorage.getItem('authorities');
-    return authorities != null ?  authorities : null;
-  }
-
-  logout(){
+  logoutUsuario(){
     localStorage.clear();
   }
 
+  getId(){
+    if (!(typeof localStorage === 'undefined')) {
+      let idGuardado: string | null =  localStorage.getItem("id");
+      return idGuardado!=null ?  parseInt(idGuardado): null;
+    }
+    return null;
+  }
+
+  getToken(){
+    if (!(typeof localStorage === 'undefined')) {
+      let tokenGuardado: string | null =  localStorage.getItem("token");
+      return tokenGuardado!=null ?  (tokenGuardado): null;
+    }
+  return null;
+  }
+
+  getAuthorities(){
+    if (!(typeof localStorage === 'undefined')) {
+      let authoritiesGuardado: string | null =  localStorage.getItem("authorities");
+      return authoritiesGuardado!=null ?  (authoritiesGuardado): null;
+    }
+  return null;
+  }
 
 }

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { UserService } from '../../services/user.service'; 
-import { User } from '../../models/user'; 
+import { Router } from '@angular/router';
+import { User } from '../../models/user';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -11,59 +12,44 @@ import { User } from '../../models/user';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  loginFormGroup!: FormGroup;
+  mostrarPassword:boolean=false;
+  idAsesor:number=0;
 
-  loginForm!:FormGroup;
-  hide:boolean=true;
 
-  constructor(
-    private formBuilder:FormBuilder,
-    private userService: UserService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private snackBar: MatSnackBar
-  ) {}
+  constructor (private servicioUsuario: UserService, private formBuilder:FormBuilder,
+    private enrutador: Router, private _snackBar: MatSnackBar) {}
+  
 
-  ngOnInit(){
-    this.userService.logout(); 
-    this.loadForm();
-  }
-
-  loadForm() {
+    ngOnInit(){
+      this.crearFormGrup();
     
-    this.loginForm = this.formBuilder.group(
-      {
-        userName:["", [Validators.required, Validators.maxLength(20), Validators.minLength(4)]],
-        password:["", [Validators.required, Validators.maxLength(20), Validators.minLength(4)]]
+     }
+    
+     crearFormGrup(){
+      this.loginFormGroup = this.formBuilder.group({
+        userName:["",[Validators.required, Validators.minLength(5)]],
+        password:["",[Validators.required, Validators.minLength(5)]]
+      })
+     }
+
+     logearUsuario(){
+
+      const usuario:User={
+        id:0,
+        userName: this.loginFormGroup.get("userName")!.value,
+        password: this.loginFormGroup.get("password")!.value,
+        type: ""    
       }
-    );
 
-  }
-
-  loginUser() {
-    const user: User = {
-      id: 0,
-      userName: this.loginForm.get("userName")!.value,
-      password: this.loginForm.get("password")!.value,
-      type: "ROLE_STUDENT"
-    };
-
-    this.userService.login(user).subscribe({
-      next: (data) => {
-        this.router.navigate(["/home"]);
-        this.snackBar.open("El usuario se logeó correctamente", "OK", {duration:2000});
-    },
-    error: (err) => {
-      console.log(err);
-      this.snackBar.open("Hubo un error en la autenticación del usuario: "+err.error.message, "OK", {duration:2000});
-    }
-    });
-
-  }
-
-
-  cancel() {
-    this.router.navigate(["/"]);    
-  }
-
-
+      this.servicioUsuario.logearUsuario(usuario).subscribe({
+        next: (data)=>{
+          this.enrutador.navigate(["/home"]);                    
+        },
+        error:(err:HttpErrorResponse)=>{
+          console.log(err);
+          this._snackBar.open("Error en el ingreso: "+err.error.message,"OK", {duration:3000});
+        }
+      })
+     }
 }

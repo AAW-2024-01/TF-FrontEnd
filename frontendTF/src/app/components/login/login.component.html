@@ -1,38 +1,28 @@
-<div>
-    <div><h2>Bienvendio usuario!</h2></div>
-</div>
+<h3>Ingrese a la Your Learn</h3>
 
-
-<form [formGroup]="loginForm">
+<form [formGroup]="loginFormGroup">
 
     <mat-form-field>
         <mat-label>Usuario</mat-label>
-        <input matInput formControlName="userName" placeholder="Ingrese un nombre de usuario...">
-        <div *ngIf="loginForm.get('userName')?.hasError('required') && loginForm.get('userName')?.touched">
-            <span style="color: red">Este campo es obligatorio</span>
-        </div>
+        <input matInput formControlName="userName">
     </mat-form-field>
-    <br><br>
+    <span style="color: red;" *ngIf="loginFormGroup.get('userName')?.hasError('required') && loginFormGroup.get('userName')?.touched">Este campo es obligatorio</span>
+    <span style="color: red;" *ngIf="loginFormGroup.get('userName')?.hasError('minlength') && loginFormGroup.get('userName')?.touched">Este campo requiere un minimo de 5 caracteres</span>
+    <br>
+    <br>
     <mat-form-field>
         <mat-label>Password</mat-label>
-        <input matInput formControlName="password" placeholder="Ingrese un password..." [type]=" hide?'password':'text' ">
-        <div *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
-            <span style="color: red">Este campo es obligatorio</span>
-        </div>
+        <input matInput formControlName="password" [type]="mostrarPassword?'text':'password'">
     </mat-form-field>
-    <button  mat-icon-button  (click)="hide = !hide" >
-        <mat-icon>{{hide?"visibility_off":"visibility"}}</mat-icon>
+    <button (click)="mostrarPassword=!mostrarPassword" >
+        <mat-icon>{{mostrarPassword?"visibility_off":"visibility"}}</mat-icon>
     </button>
-
-
-    <br><br>
-    <button mat-raised-button color="primary" (click)="loginUser()" [disabled]="loginForm.invalid" >Ingresar</button>
-
-    <button mat-raised-button color="secondary" (click)="cancel()">Cancelar</button>
-    <br><br>
-    <span>Si no tiene usuario aún: </span>
-    <B>
-        <a routerLink="/register">Regístrese aquí</a>
-    </B>
+    <span style="color: red;" *ngIf="loginFormGroup.get('password')?.hasError('required') && loginFormGroup.get('password')?.touched">Este campo es obligatorio</span>
+    <span style="color: red;" *ngIf="loginFormGroup.get('password')?.hasError('minlength') && loginFormGroup.get('password')?.touched">Este campo requiere un minimo de 5 caracteres</span>
+    <br>
+    <br>
+    <button mat-flat-button color="warn" routerLink="/register">No estoy registrado</button>
+    <span> | </span>
+    <button mat-flat-button color="accent" (click)="logearUsuario()">Ingresar</button>
 
 </form>

@@ -29,6 +29,7 @@ export class ListAlumnoComponent {
     })
   }
   applyFilter(evento:Event){
-
+    const filterValue = (evento.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

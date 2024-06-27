@@ -5,6 +5,8 @@ import { PerfilAlumnoComponent } from '../alumno/perfil-alumno/perfil-alumno.com
 ;
 import { DetailAsesorComponent } from '../asesor/detail-asesor/detail-asesor.component';
 import { PerfilAsesorComponent } from '../asesor/perfil-asesor/perfil-asesor.component';
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +15,7 @@ import { PerfilAsesorComponent } from '../asesor/perfil-asesor/perfil-asesor.com
 })
 //intercambiar asesor y alumno
 export class HeaderComponent {
+  
    currentText: string = 'Alumno';
    previousText: string = 'Asesor';
   toggleText(): void {
@@ -35,6 +38,15 @@ export class HeaderComponent {
         console.warn(`Unsupported text value: ${this.currentText}`);
     }
   }
+  constructor (private usuarioServicio: UserService, private enrutador: Router){}
 
+  logout(){
+    this.usuarioServicio.logoutUsuario();
+    this.enrutador.navigate(["/"]);
+  }
+
+  usuarioLogeado(){
+    return this.usuarioServicio.getId()!=null;
+  }
 
 }

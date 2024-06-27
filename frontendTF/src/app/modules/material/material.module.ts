@@ -8,18 +8,18 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule} from '@angular/material/dialog';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
-
  declarations: [],
-
  imports: [
+  MatButtonModule, MatMenuModule, MatIconModule, 
   CommonModule,
   MatToolbarModule,
   MatButtonModule,
@@ -34,13 +34,11 @@ import { MatSelectModule } from '@angular/material/select';
   MatDialogModule,
   MatOptionModule,
   MatCheckboxModule,
-  MatSelectModule
-
+  MatSelectModule,
  ],
 
  exports: [
-
-  MatToolbarModule,
+  MatButtonModule, MatMenuModule, MatIconModule,  
   MatButtonModule,
   MatCardModule,
   MatTableModule,
@@ -54,7 +52,6 @@ import { MatSelectModule } from '@angular/material/select';
   MatOptionModule,
   MatCheckboxModule,
   MatSelectModule
-
  ]
 
 })

@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { Asesoria } from '../models/asesoria';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,23 +11,24 @@ export class AsesoriaService {
   recurso:string = "asesoria"
   constructor(private clienteHTTP:HttpClient) { }
 
-  obtenerAsesorias(): Observable<any[]> {
-    return this.clienteHTTP.get<any[]>(this.servidor);
+  //METODOS CRUD DEL BACKEND
+  getAllAsesorias(){
+    return this.clienteHTTP.get<Asesoria[]>(this.servidor+"/"+this.recurso);
+  }
+  getAsesoria(id:number){
+    return this.clienteHTTP.get<Asesoria>(this.servidor+"/"+this.recurso + "/" + id.toString());
   }
 
-  cancelarAsesoria(asesoriaId: number): Observable<any> {
-    return this.clienteHTTP.delete(`${this.servidor}/${asesoriaId}`);
+  postAsesoria(alumno:Asesoria){
+    return this.clienteHTTP.post<Asesoria>(this.servidor+"/"+this.recurso,alumno);
   }
-  registrarAesoria(asesoria:Asesoria){
-    return this.clienteHTTP.post<Asesoria>(this.servidor+"/"+this.recurso,asesoria);
+  putAsesoria(alumno:Asesoria){
+    return this.clienteHTTP.put<Asesoria>(this.servidor+"/"+this.recurso,alumno 
+      + "/" + alumno.id.toString());
   }
-  reprogramarAsesoria(asesoriaId: number, nuevaFecha: Date, nuevaHoraInicio: string, nuevaHoraFin: string): Observable<Asesoria> {
-    const url = `${this.servidor}/${asesoriaId}/reprogramar`;
-    const body = {
-      fechaRealizado: nuevaFecha,
-      horaInicio: nuevaHoraInicio,
-      horaFin: nuevaHoraFin
-    };
-    return this.clienteHTTP.put<Asesoria>(url, body);
+  deleteAsesoria(id:number){
+    return this.clienteHTTP.delete(this.servidor+"/"+this.recurso + "/" + id.toString());
   }
+
+  
 }

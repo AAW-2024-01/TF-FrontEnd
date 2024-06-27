@@ -1,26 +1,14 @@
-// asesoria.model.ts
+import { Alumno } from "./alumno";
+import { Asesor } from "./asesor";
+import { Curso } from "./curso";
+import { Horario } from "./horario";
 
-export enum AsesoriaEstado {
-    PENDIENTE = 'PENDIENTE',
-    REALIZADA = 'REALIZADA',
-    CANCELADA = 'CANCELADA'
-  }
-  
-  export interface Asesoria {
-    id: number;
-    fechaRegistro: Date;
-    tarifaPactadas: number;
-    fechaRealizado: Date;
-    calificacionAsesor: number;
-    calificacionAlumno: number;
-    estado: AsesoriaEstado;
-    horaInicio: string;  // Usamos string para Time
-    horaFin: string;     // Usamos string para Time
-    duracion: number;
-    montoCobrado: number;
-    alumnoId: number;
-    asesorId: number;
-    cursoId: number;
-  }
-  
-  
+export interface Asesoria{
+    id:number,
+    alumno:Alumno,
+    asesor:Asesor,
+    horario:Horario,
+    curso:Curso,
+    montoCobrado:number,
+    estado:string
+}

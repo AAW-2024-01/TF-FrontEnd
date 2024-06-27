@@ -1,0 +1,61 @@
+.contenedor_header{
+    background: #353FF2;
+    width: 100%;
+    height: 50px;
+    margin: auto;
+    padding: 40px;
+    padding-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+}
+
+.tipo_usuario h2
+{
+    color:#fff;
+    font-size: 24px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* Compensa el ancho del elemento */
+}
+
+.logo img{
+    width: 70px;
+    cursor: pointer;
+}
+
+/* .boton_3p{
+    position: absolute;
+    top: 35;
+    right: 0;
+} */
+#icon_menu
+{
+    position: absolute;
+    top: 2em;
+    right: 0;
+}
+
+#profile{
+    width: 25px;
+}
+#teacher{
+    width: 25px;
+}
+#icon_menu{
+    color: #fff;
+}
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Optional: aligns buttons to the start of the column */
+}
+
+.button-wrapper {
+    width: 100%; /* Ensure the buttons take up the full width of the menu */
+}
+
+.my-button {
+    width: 100%; /* Ensure the buttons take up the full width of the container */
+    margin: 10px 0; /* Add space between the buttons */
+}

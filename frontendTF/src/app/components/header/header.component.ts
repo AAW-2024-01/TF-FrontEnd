@@ -6,7 +6,7 @@ import { PerfilAlumnoComponent } from '../alumno/perfil-alumno/perfil-alumno.com
 import { DetailAsesorComponent } from '../asesor/detail-asesor/detail-asesor.component';
 import { PerfilAsesorComponent } from '../asesor/perfil-asesor/perfil-asesor.component';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute,Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +15,8 @@ import { Router } from '@angular/router';
 })
 //intercambiar asesor y alumno
 export class HeaderComponent {
+  id:number=0;
+  constructor (private usuarioServicio: UserService, private enrutador: Router,private ruta:ActivatedRoute){}
   
    currentText: string = 'Alumno';
    previousText: string = 'Asesor';
@@ -22,6 +24,11 @@ export class HeaderComponent {
     const tempText = this.currentText;
     this.currentText = this.previousText;
     this.previousText = tempText;
+  }
+
+  ngOnInit()
+  {
+    this.id = this.ruta.snapshot.params["id"];
   }
 
 //switch para cambiar el acceso segun el tipo de usuario
@@ -38,7 +45,7 @@ export class HeaderComponent {
         console.warn(`Unsupported text value: ${this.currentText}`);
     }
   }
-  constructor (private usuarioServicio: UserService, private enrutador: Router){}
+  
 
   logout(){
     this.usuarioServicio.logoutUsuario();

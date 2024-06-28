@@ -1,12 +1,10 @@
-import { Component, inject} from '@angular/core'
+import { Component,OnInit, inject} from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
-import { PerfilAlumnoComponent } from '../alumno/perfil-alumno/perfil-alumno.component'
-
-;
-import { DetailAsesorComponent } from '../asesor/detail-asesor/detail-asesor.component';
+import { PerfilAlumnoComponent } from '../alumno/perfil-alumno/perfil-alumno.component';
 import { PerfilAsesorComponent } from '../asesor/perfil-asesor/perfil-asesor.component';
 import { UserService } from '../../services/user.service';
 import { ActivatedRoute,Router } from '@angular/router';
+import { TipoUsuarioService } from '../../tipo-usuario.service';
 
 @Component({
   selector: 'app-header',
@@ -14,22 +12,26 @@ import { ActivatedRoute,Router } from '@angular/router';
   styleUrl: './header.component.css'
 })
 //intercambiar asesor y alumno
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   id:number=0;
 
-  constructor (private usuarioServicio: UserService, private enrutador: Router,private ruta:ActivatedRoute){}
-  
+  constructor (private usuarioServicio: UserService, private enrutador: Router,private ruta:ActivatedRoute,
+    public tipo: TipoUsuarioService
+  ){}
    currentText: string = 'Alumno';
    previousText: string = 'Asesor';
+   
   toggleText(): void {
     const tempText = this.currentText;
     this.currentText = this.previousText;
+    this.tipo.setTipo(this.currentText);
     this.previousText = tempText;
   }
 
   ngOnInit()
   {
     this.id = this.ruta.snapshot.params["id"];
+    this.tipo.setTipo(this.currentText);
   }
 
 //switch para cambiar el acceso segun el tipo de usuario

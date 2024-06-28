@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmacionComponent } from '../../confirmacion/confirmacion.component';
 import { Curso } from '../../../models/curso';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-list-asesoria',
@@ -16,9 +17,11 @@ export class ListAsesoriaComponent {
   dataSource=new MatTableDataSource<Asesoria>();
   displayedColumns:string[]=["id","alumno","curso","horaInicio","horaFin","monto","estado","actions"];
   cantidad:number=0;
-  curso:Curso[]=[];
+  prueba:string[]=[];
+  horasFin:string[]=[];
 
-  constructor (private asesoriaService: AsesoriaService, private _snackBar:MatSnackBar, private confirmador: MatDialog){}
+  constructor (private asesoriaService: AsesoriaService, private _snackBar:MatSnackBar,
+     private confirmador: MatDialog, private userService:UserService){}
   
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -30,10 +33,10 @@ export class ListAsesoriaComponent {
   }
 
   cargarLista(){
-    this.asesoriaService.getAllAsesorias().subscribe({
+    this.asesoriaService.getAsesoriaByAsesorId(this.userService.getId()!).subscribe({
       next: (data:Asesoria[]) => {
-        this.dataSource = new MatTableDataSource(data); 
-        this.cantidad = data.length;  
+        this.dataSource = new MatTableDataSource(data);
+        this.cantidad = data.length; 
       },
       error: (err) => {
         console.log(err);

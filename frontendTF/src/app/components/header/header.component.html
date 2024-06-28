@@ -2,7 +2,7 @@
     <div class="contenedor_header">
     <div class="menu_bar">
         <div class="logo">
-            <img src="/logo.png" routerLink="">
+            <img src="/logo.png" routerLink="/home">
         </div>
     </div>
     <div class="tipo_usuario">
@@ -16,7 +16,7 @@
         </button>
         <div class="button-container">
           <mat-menu #menu="matMenu" xPosition="before">
-              <div *ngIf="id==0" class="button-wrapper">
+              <div class="button-wrapper">
                   <button class="my-button" mat-button (click)="openDialog()">
                       <img id="profile" src="/profile.svg">
                       <span> Ver mi Perfil</span>

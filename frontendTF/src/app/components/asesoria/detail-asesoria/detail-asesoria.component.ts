@@ -15,6 +15,8 @@ import { HorarioService } from '../../../services/horario.service';
 import { AsesorCursoService } from '../../../services/asesor-curso.service';
 import { AsesorCurso } from '../../../models/asesor-curso';
 import { UserService } from '../../../services/user.service';
+import { DetalleHorario } from '../../../models/detalle-horario';
+import { DetalleHorarioService } from '../../../services/detalle-horario.service';
 
 interface Estado {
   value: string;
@@ -32,6 +34,7 @@ export class DetailAsesoriaComponent {
   listAlumno:Alumno[]=[];
   listAsesor:Asesor[]=[];
   listHorario:Horario[]=[];
+  listDetalleHorario:DetalleHorario[]=[];
   //el idAsesor se va jalar del local storage
   idAsesor:number=0;
   
@@ -48,16 +51,37 @@ export class DetailAsesoriaComponent {
                private enrutador: Router, private _snackBar: MatSnackBar, private ruta:ActivatedRoute,
             private cursoService: CursoService, private alumnoService: AlumnoService,
             private asesorService: AsesorService, private horarioService:HorarioService,
-            private asesorCursoService: AsesorCursoService, private userService:UserService) {};
-
+            private asesorCursoService: AsesorCursoService, private userService:UserService,
+            private detalleHorarioService:DetalleHorarioService) {};
 
   ngOnInit(){
     this.idAsesor = this.userService.getId()!;
+    this.crearFormGrup();
     this.cargaCursos();
     this.cargaAlumno();
     this.cargaAsesor();
     this.cargaHorario();
-    this.crearFormGrup();
+    this.id = this.ruta.snapshot.params["id"];
+    if (this.id!=0 && this.id!=undefined) {
+      this.asesoriaService.getAsesoria(this.id).subscribe({
+        next: (data:Asesoria)=>{
+          this.detalleFormGroup.get("id")?.setValue(data.id);
+          this.detalleFormGroup.get("alumno")!.setValue(data.alumno.id);
+          this.detalleFormGroup.get("asesor")!.setValue(data.asesor.id);
+          this.detalleFormGroup.get("curso")!.setValue(data.curso.id);
+          this.detalleFormGroup.get("monto")!.setValue(data.montoCobrado);
+          this.detalleFormGroup.get("estado")!.setValue(data.estado);
+          this.detalleFormGroup.get("horario")!.setValue(data.detalle.id);
+          this.detalleFormGroup.get("horaInicio")?.setValue(data.detalle.horaInicio);
+          this.detalleFormGroup.get("horaFin")?.setValue(data.detalle.horaFin);
+        },
+        error:(err)=>{
+          console.log(err);
+        }
+      })
+    } else {
+      this.id=0;
+    }
   }
 
   crearFormGrup(){
@@ -73,24 +97,29 @@ export class DetailAsesoriaComponent {
       horaFin: [""]      
     });
      
-    // Suscripción al cambio de horario para actualizar horasInicio y horasFin
-    
+    this.detalleFormGroup.get("horario")!.valueChanges.subscribe(selectedHorarioId => {
+      const selectedHorario = this.listDetalleHorario.find(h => h.horario.id === selectedHorarioId);
+      if (selectedHorario) {
+        this.filtrarHorasPorDia(selectedHorario.horario.dia);
+        this.detalleFormGroup.get("horaInicio")?.setValue(selectedHorario.horaInicio);
+        this.detalleFormGroup.get("horaFin")?.setValue(selectedHorario.horaFin);
+      }
+    });
   }
-
   grabarAsesoria(){
     const nuevaAsesoria:Asesoria={
       id: parseInt(this.detalleFormGroup.get("id")!.value),
       alumno:{id: this.detalleFormGroup.get("alumno")!.value, ciclo:0,nombre:"",apellido:""},
       asesor:{id:this.detalleFormGroup.get("asesor")!.value, nombre:"",apellido:"",tarifa:0,experiencia:""},
       curso:{id: this.detalleFormGroup.get("curso")!.value, nombre:"", ciclo:0},
-      horario:{id: this.detalleFormGroup.get("horario")!.value, dia:"", horaInicio:"",horaFin:"",asesor:{id:this.detalleFormGroup.get("asesor")!.value, nombre:"",apellido:"",tarifa:0,experiencia:""}},
+      //horario:{id: this.detalleFormGroup.get("horario")!.value, dia:"",asesor:{id: this.idAsesor, nombre:"",apellido:"",tarifa:0,experiencia:""}},
       montoCobrado: this.detalleFormGroup.get("monto")!.value,
-      estado: (this.detalleFormGroup.get("estado")!.value)
+      estado: this.detalleFormGroup.get("estado")!.value,
+      detalle:{id:this.detalleFormGroup.get("horario")!.value, horaInicio:"",horaFin:"",horario:{id:this.detalleFormGroup.get("horario")!.value,dia:"",asesor:{id:this.detalleFormGroup.get("asesor")!.value, nombre:"",apellido:"",tarifa:0,experiencia:""}}}
     };
-
+    
     this.asesoriaService.postAsesoria(nuevaAsesoria).subscribe({
       next:(data:Asesoria)=>{
-        this.idAsesor=nuevaAsesoria.asesor.id;
         this._snackBar.open("La asignacion se grabó","OK",{duration: 1000});
         this.enrutador.navigate(["/list-asesoria"]);
       },
@@ -134,46 +163,35 @@ export class DetailAsesoriaComponent {
     })
   }
   cargaHorario(){
-    this.horarioService.getHorariosPorAsesorId(this.idAsesor).subscribe({
-      next:(data:Horario[])=>{
-        this.listHorario=data;
-        // Obtener días únicos para usarlos como opciones en el select de horario
-        this.dias = Array.from(new Set(data.map(horario => horario.dia)));
+    this.detalleHorarioService.getDetalleHorariosPorAsesorId(this.idAsesor).subscribe({
+      next:(data:DetalleHorario[])=>{
+        this.listDetalleHorario=data;
+        this.listHorario=data.map(x=>x.horario);
+       // Obtener días únicos para usarlos como opciones en el select de horario
+        this.dias = Array.from(new Set(data.map(horario => horario.horario.dia)));  
 
         // Inicialmente mostrar horarios del primer día
         if (this.dias.length > 0) {
-        this.filtrarHorasPorDia(this.dias[0]); // Filtrar por el primer día
+         this.filtrarHorasPorDia(this.dias[0]); // Filtrar por el primer día
         }
-
-        // Escuchar cambios en el select de horario para filtrar horas inicio y fin
-        this.detalleFormGroup.get('horario')!.valueChanges.subscribe(selectedHorarioId => {
-        const horarioSeleccionado = data.find(horario => horario.id === selectedHorarioId);
-        if (horarioSeleccionado) {
-          this.filtrarHorasPorDia(horarioSeleccionado.dia);
-        }
-      });
-      //para que se muestre la hora fin de la hora inicio respectivamente
-      this.detalleFormGroup.get('horaInicio')!.valueChanges.subscribe(selectedHoraInicio => {
-        if (selectedHoraInicio) {
-          // Filtrar la hora fin correspondiente a la hora inicio seleccionada
-          const horarioSeleccionado = data.find(horario => horario.horaInicio === selectedHoraInicio);
-          if (horarioSeleccionado) {
-            this.horasFin = [horarioSeleccionado.horaFin];
-          }
-        }
-      });
     },
     error: (err) => {
       console.log(err);
     }
   });
   }
-
   filtrarHorasPorDia(diaSeleccionado: string) {
-    // Filtrar horas de inicio y fin por el día seleccionado
-    const horariosDelDia = this.listHorario.filter(horario => horario.dia === diaSeleccionado);
+   // Filtrar horas de inicio y fin por el día seleccionado
+    const horariosDelDia = this.listDetalleHorario.filter(horario => horario.horario.dia === diaSeleccionado);
     this.horasInicio = horariosDelDia.map(horario => horario.horaInicio);
     this.horasFin = horariosDelDia.map(horario => horario.horaFin);
+  
+  }
+  validarAutoridad():boolean{
+    if(this.userService.getAuthorities()! === "ROLE_TEACHER"){
+      return true;
+    }
+    return false;
   }
   
 }

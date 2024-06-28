@@ -15,7 +15,7 @@ import { UserService } from '../../../services/user.service';
 })
 export class ListAsesoriaComponent {
   dataSource=new MatTableDataSource<Asesoria>();
-  displayedColumns:string[]=["id","alumno","curso","horaInicio","horaFin","monto","estado","actions"];
+  displayedColumns:string[]=["id","alumno","curso","dia","horaInicio","horaFin","monto","estado","actions"];
   cantidad:number=0;
   prueba:string[]=[];
   horasFin:string[]=[];
@@ -60,5 +60,11 @@ export class ListAsesoriaComponent {
         });
       }    
     });
+  }
+  validarAutoridad():boolean{
+    if(this.userService.getAuthorities()=="ROLE_TEACHER"){
+      return true;
+    }
+    else return false;
   }
 }

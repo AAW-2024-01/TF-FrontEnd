@@ -8,9 +8,9 @@
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
 </mat-form-field>
 
-<span>   |   </span>
+<!-- <span>   |   </span>
 <button mat-flat-button color="accent" routerLink="/detail-asesoria">Agregar Asesoria</button>
-<br>
+<br> -->
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   
     <ng-container matColumnDef="id">
@@ -27,7 +27,12 @@
         <th mat-header-cell *matHeaderCellDef> Nombre de Curso</th>
         <td mat-cell *matCellDef="let element"> {{element.curso?.nombre}} </td>
       </ng-container>
-  
+
+      <ng-container matColumnDef="dia">
+        <th mat-header-cell *matHeaderCellDef> Dia </th>
+        <td mat-cell *matCellDef="let element" > {{ element.detalle?.horario.dia}}</td>
+      </ng-container>
+
       <ng-container matColumnDef="horaInicio">
         <th mat-header-cell *matHeaderCellDef> Hora de Inicio </th>
         <td mat-cell *matCellDef="let element" > {{ element.detalle?.horaInicio}}</td>
@@ -40,7 +45,7 @@
 
       <ng-container matColumnDef="monto">
         <th mat-header-cell *matHeaderCellDef> Monto </th>
-        <td mat-cell *matCellDef="let element"> {{ element.montoCobrado}} </td>
+        <td mat-cell *matCellDef="let element"> {{ element.asesor.tarifa}}Tarifa Asesor </td>
       </ng-container>
 
       <ng-container matColumnDef="estado">

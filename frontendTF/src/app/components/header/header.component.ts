@@ -21,6 +21,9 @@ export class HeaderComponent implements OnInit {
    currentText: string = 'Alumno';
    previousText: string = 'Asesor';
    
+
+
+
   toggleText(): void {
     const tempText = this.currentText;
     this.currentText = this.previousText;
@@ -39,23 +42,6 @@ export class HeaderComponent implements OnInit {
            break;     
          }
       }
-    // switch(this.id.toString())
-    // {
-    //   case "0":
-    //     break;
-    //   default: 
-    //   switch(this.tipo.getTipo().toString())
-    //     {
-    //       case'Alumno':
-    //       // console.log("Alumno");
-    //       this.enrutador.navigate(["/homealumno"]);
-    //       break;
-    //       case'Asesor':
-    //       this.enrutador.navigate(["/home"]);
-    //       break;     
-    //     }
-    //     break;
-    // }
   }
 
   ngOnInit()
@@ -63,6 +49,24 @@ export class HeaderComponent implements OnInit {
     this.id = this.ruta.snapshot.params["id"];
     this.tipo.setTipo(this.currentText);
   }
+
+
+homeSwitch():void
+{
+  switch (this.currentText)
+  {
+    case 'Alumno':
+      this.enrutador.navigate(["/homealumno"]);
+        break;
+      case 'Asesor':
+      this.enrutador.navigate(["/home"]);
+        break;
+  }
+}
+
+
+
+
 
 //switch para cambiar el acceso segun el tipo de usuario
   readonly dialog =inject(MatDialog);

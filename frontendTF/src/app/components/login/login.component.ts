@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component ,inject ,Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { User } from '../../models/user';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login',
@@ -16,15 +17,14 @@ export class LoginComponent {
   mostrarPassword:boolean=false;
   idAsesor:number=0;
 
-
   constructor (private servicioUsuario: UserService, private formBuilder:FormBuilder,
-    private enrutador: Router, private _snackBar: MatSnackBar) {}
+    private enrutador: Router, private _snackBar: MatSnackBar ) {}
   
 
     ngOnInit(){
       this.crearFormGrup();
-    
      }
+
     
      crearFormGrup(){
       this.loginFormGroup = this.formBuilder.group({
@@ -34,16 +34,15 @@ export class LoginComponent {
      }
 
      logearUsuario(){
-
       const usuario:User={
         id:0,
         userName: this.loginFormGroup.get("userName")!.value,
         password: this.loginFormGroup.get("password")!.value,
         type: ""    
       }
-
       this.servicioUsuario.logearUsuario(usuario).subscribe({
         next: (data)=>{
+
           this.enrutador.navigate(["/home"]);                    
         },
         error:(err:HttpErrorResponse)=>{

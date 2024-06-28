@@ -36,6 +36,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AlumnoCursoComponent } from './components/alumno-curso/alumno-curso.component';
 import { DetailAlumnoCursoComponent } from './components/alumno-curso/detail-alumno-curso/detail-alumno-curso.component';
 import { ListAlumnoCursoComponent } from './components/alumno-curso/list-alumno-curso/list-alumno-curso.component';
+import { HomeAlumnoComponent } from './components/home/home-alumno/home-alumno.component';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { ListAlumnoCursoComponent } from './components/alumno-curso/list-alumno-
     RegisterComponent,
     AlumnoCursoComponent,
     DetailAlumnoCursoComponent,
-    ListAlumnoCursoComponent
+    ListAlumnoCursoComponent,
+    HomeAlumnoComponent
   ],
   imports: [
     BrowserModule,

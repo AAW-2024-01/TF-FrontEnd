@@ -45,7 +45,8 @@ export class LoginComponent implements OnInit {
           switch(this.nameTipo.getTipo().toString())
           {
             case'Alumno':
-            console.log("Alumno");
+            // console.log("Alumno");
+            this.enrutador.navigate(["/homealumno"]);
             break;
             case'Asesor':
             this.enrutador.navigate(["/home"]);

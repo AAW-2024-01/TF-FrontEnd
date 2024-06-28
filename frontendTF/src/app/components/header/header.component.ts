@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit {
     this.currentText = this.previousText;
     this.tipo.setTipo(this.currentText);
     this.previousText = tempText;
+    
   }
 
   ngOnInit()

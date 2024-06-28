@@ -1,24 +1,24 @@
-import { Component ,inject ,Input, Output, EventEmitter } from '@angular/core';
+import { Component ,inject,OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { User } from '../../models/user';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MatDialog } from '@angular/material/dialog';
+import { TipoUsuarioService } from '../../tipo-usuario.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginFormGroup!: FormGroup;
   mostrarPassword:boolean=false;
   idAsesor:number=0;
 
   constructor (private servicioUsuario: UserService, private formBuilder:FormBuilder,
-    private enrutador: Router, private _snackBar: MatSnackBar ) {}
+    private enrutador: Router, private _snackBar: MatSnackBar ,public nameTipo:TipoUsuarioService) {}
   
 
     ngOnInit(){
@@ -42,8 +42,15 @@ export class LoginComponent {
       }
       this.servicioUsuario.logearUsuario(usuario).subscribe({
         next: (data)=>{
-
-          this.enrutador.navigate(["/home"]);                    
+          switch(this.nameTipo.getTipo().toString())
+          {
+            case'Alumno':
+            console.log("Alumno");
+            break;
+            case'Asesor':
+            this.enrutador.navigate(["/home"]);
+            break;     
+          }
         },
         error:(err:HttpErrorResponse)=>{
           console.log(err);

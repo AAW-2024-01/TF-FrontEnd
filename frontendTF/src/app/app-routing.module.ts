@@ -23,6 +23,7 @@ import { DetailAsesoriaComponent } from './components/asesoria/detail-asesoria/d
 import { ListAsesorCursoComponent } from './components/asesor-curso/list-asesor-curso/list-asesor-curso.component';
 import { DetailAsesorCursoComponent } from './components/asesor-curso/detail-asesor-curso/detail-asesor-curso.component';
 import { RegisterComponent } from './components/register/register.component';
+import { HomeAlumnoComponent } from './components/home/home-alumno/home-alumno.component';
 
 const routes: Routes = [
   {path:"",component:LoginComponent},
@@ -46,6 +47,7 @@ const routes: Routes = [
   {path:"list-opinion",component:ListOpinionComponent},
   {path:"detail-opinion",component:DetailOpinionComponent},
   {path:"home",component:HomeComponent},
+  {path:"homealumno",component:HomeAlumnoComponent},
   //{path:"",component:HomeComponent},
   {path:"header",component:HeaderComponent},
   {path:"footer",component:FooterComponent},

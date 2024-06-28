@@ -26,6 +26,36 @@ export class HeaderComponent implements OnInit {
     this.currentText = this.previousText;
     this.tipo.setTipo(this.currentText);
     this.previousText = tempText;
+    if(this.usuarioServicio.getId()!=null)
+      {
+        switch(this.tipo.getTipo().toString())
+         {
+           case'Alumno':
+           // console.log("Alumno");
+           this.enrutador.navigate(["/homealumno"]);
+           break;
+           case'Asesor':
+           this.enrutador.navigate(["/home"]);
+           break;     
+         }
+      }
+    // switch(this.id.toString())
+    // {
+    //   case "0":
+    //     break;
+    //   default: 
+    //   switch(this.tipo.getTipo().toString())
+    //     {
+    //       case'Alumno':
+    //       // console.log("Alumno");
+    //       this.enrutador.navigate(["/homealumno"]);
+    //       break;
+    //       case'Asesor':
+    //       this.enrutador.navigate(["/home"]);
+    //       break;     
+    //     }
+    //     break;
+    // }
   }
 
   ngOnInit()

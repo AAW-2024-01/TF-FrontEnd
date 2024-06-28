@@ -23,6 +23,9 @@ import { DetailAsesoriaComponent } from './components/asesoria/detail-asesoria/d
 import { ListAsesorCursoComponent } from './components/asesor-curso/list-asesor-curso/list-asesor-curso.component';
 import { DetailAsesorCursoComponent } from './components/asesor-curso/detail-asesor-curso/detail-asesor-curso.component';
 import { RegisterComponent } from './components/register/register.component';
+import { ListAlumnoCursoComponent } from './components/alumno-curso/list-alumno-curso/list-alumno-curso.component';
+import { DetailAlumnoCursoComponent } from './components/alumno-curso/detail-alumno-curso/detail-alumno-curso.component';
+import { HomealumnoComponent } from './components/homealumno/homealumno.component';
 
 const routes: Routes = [
   {path:"",component:LoginComponent},
@@ -52,7 +55,12 @@ const routes: Routes = [
   {path:"perfilalumno",component:PerfilAlumnoComponent} , 
   {path:"perfilasesor",component:PerfilAsesorComponent} , 
   {path:"perfileditalumno",component:DetailAlumnoComponent},
-  {path:"perfileditasesor",component:DetailAsesorComponent}  
+  {path:"perfileditasesor",component:DetailAsesorComponent} ,
+  {path:"list-alumno-curso",component:ListAlumnoCursoComponent},
+  {path:"detail-alumno-curso",component:DetailAlumnoCursoComponent},
+  {path:"detail-alumno",component:DetailAlumnoComponent},
+  {path:"edit-alumno-curso/:id",component:DetailAlumnoCursoComponent},
+  {path:"home-alumno",component:HomealumnoComponent}
 
 ];
 

@@ -69,4 +69,10 @@ export class UserService {
   return null;
   }
 
+  guardarAutoridades(authorities: string[]) {
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('authorities', JSON.stringify(authorities));
+    }
+  }
+  
 }

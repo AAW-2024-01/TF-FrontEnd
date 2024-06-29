@@ -15,7 +15,7 @@ import { UserService } from '../../../services/user.service';
 })
 export class ListAsesoriaComponent {
   dataSource=new MatTableDataSource<Asesoria>();
-  displayedColumns:string[]=["id","alumno","curso","dia","horaInicio","horaFin","monto","estado","actions"];
+  displayedColumns:string[]=["id","nombre","curso","dia","horaInicio","horaFin","monto","estado","actions"];
   cantidad:number=0;
   prueba:string[]=[];
   horasFin:string[]=[];
@@ -32,16 +32,32 @@ export class ListAsesoriaComponent {
     this.cargarLista();
   }
 
-  cargarLista(){
-    this.asesoriaService.getAsesoriaByAsesorId(this.userService.getId()!).subscribe({
-      next: (data:Asesoria[]) => {
-        this.dataSource = new MatTableDataSource(data);
-        this.cantidad = data.length; 
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
+  cargarLista() {
+    if (this.userService.getAuthorities()?.includes('ROLE_TEACHER')) {
+      // Modo teacher: cargar por Asesor ID
+      this.asesoriaService.getAsesoriaByAsesorId(this.userService.getId()!).subscribe({
+        next: (data: Asesoria[]) => {
+          this.dataSource = new MatTableDataSource(data);
+          this.cantidad = data.length;
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+    } else if (this.userService.getAuthorities()?.includes('ROLE_STUDENT')) {
+      // Modo student: cargar por Alumno ID
+      this.asesoriaService.getAsesoriaByAlumnoId(this.userService.getId()!).subscribe({
+        next: (data: Asesoria[]) => {
+          this.dataSource = new MatTableDataSource(data);
+          this.cantidad = data.length;
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+    } else {
+      console.log("No se encontraron roles válidos para cargar la lista.");
+    }
   }
 
   eliminar(id: number){
@@ -62,12 +78,14 @@ export class ListAsesoriaComponent {
     });
   }
   validarAutoridad():boolean{
-    if(this.userService.getAuthorities()=="ROLE_TEACHER"){
-      return true;
+    
+    if(this.userService.getAuthorities()?.includes('ROLE_TEACHER')){
+      return false;
     }
-    //else if(this.userService.getAuthorities()=="ROLE_STUDENT"){
-    //  return false
-    //} 
-    return false;
+    return true;
+  }
+
+  isAsesor(): boolean {
+    return this.userService.getAuthorities()?.includes('ROLE_TEACHER') ?? false;
   }
 }

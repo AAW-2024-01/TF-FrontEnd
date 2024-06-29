@@ -18,9 +18,11 @@
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
   
-    <ng-container matColumnDef="alumno">
-      <th mat-header-cell *matHeaderCellDef> Nombre de Alumno</th>
-      <td mat-cell *matCellDef="let element"> {{element.alumno?.nombre}} </td>
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let element">
+        {{ isAsesor() ? element.alumno?.nombre : element.asesor?.nombre }}
+      </td>
     </ng-container>
   
     <ng-container matColumnDef="curso">
@@ -45,7 +47,7 @@
 
       <ng-container matColumnDef="monto">
         <th mat-header-cell *matHeaderCellDef> Monto </th>
-        <td mat-cell *matCellDef="let element"> {{ element.asesor.tarifa}}Tarifa Asesor </td>
+        <td mat-cell *matCellDef="let element"> {{ element.asesor.tarifa}}</td>
       </ng-container>
 
       <ng-container matColumnDef="estado">
@@ -56,7 +58,7 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Opciones </th>
         <td mat-cell *matCellDef="let element"> 
-        <a routerLink="/detail-asesoria">
+        <a routerLink="/register-asesoria/{{element.id}}">
           <mat-icon>edit</mat-icon>
         </a>
         <a (click)="eliminar(element.id)" style="cursor: pointer;">

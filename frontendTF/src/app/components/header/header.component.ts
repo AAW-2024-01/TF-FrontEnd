@@ -16,8 +16,7 @@ export class HeaderComponent implements OnInit {
   id:number=0;
 
   constructor (private usuarioServicio: UserService, private enrutador: Router,private ruta:ActivatedRoute,
-    public tipo: TipoUsuarioService
-  ){}
+    public tipo: TipoUsuarioService, private userService:UserService){}
    currentText: string = 'Alumno';
    previousText: string = 'Asesor';
    
@@ -32,9 +31,13 @@ export class HeaderComponent implements OnInit {
          {
            case'Alumno':
            // console.log("Alumno");
+           const autoritiesS:string[]=["ROLE_STUDENT"];
+           this.userService.guardarAutoridades(autoritiesS);
            this.enrutador.navigate(["/homealumno"]);
            break;
            case'Asesor':
+           const autoritiesT:string[]=["ROLE_TEACHER"];
+           this.userService.guardarAutoridades(autoritiesT);
            this.enrutador.navigate(["/home"]);
            break;     
          }
@@ -46,7 +49,6 @@ export class HeaderComponent implements OnInit {
     this.id = this.ruta.snapshot.params["id"];
     this.tipo.setTipo(this.currentText);
   }
-
 
 homeSwitch():void
 {
@@ -60,10 +62,6 @@ homeSwitch():void
         break;
   }
 }
-
-
-
-
 
 //switch para cambiar el acceso segun el tipo de usuario
   readonly dialog =inject(MatDialog);

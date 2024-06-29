@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AsesorService } from '../../../services/asesor.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CambiosdeIdService } from '../../../cambiosde-id.service';
 
 @Component({
   selector: 'app-detail-asesor',
@@ -17,7 +18,7 @@ export class DetailAsesorComponent {
   detalleFormGroup!:FormGroup;
   constructor(private userService:UserService, private formBuilder: FormBuilder, 
               private asesorService:AsesorService,private enrutador: Router,
-              private _snackBar: MatSnackBar, private ruta:ActivatedRoute){}
+              private _snackBar: MatSnackBar, private ruta:ActivatedRoute,public cambioIdService:CambiosdeIdService){}
   ngOnInit(): void {
       this.crearFormGrup();
       this.id = this.ruta.snapshot.params["id"];
@@ -49,7 +50,7 @@ export class DetailAsesorComponent {
   }
   guardarAsesor(){
     const nuevoAsesor:Asesor={
-      id: this.userService.getId()!,
+      id: 0,
       nombre: this.detalleFormGroup.get("nombre")!.value,
       apellido:this.detalleFormGroup.get("apellido")!.value,
       tarifa:this.detalleFormGroup.get("tarifa")!.value,
@@ -57,9 +58,10 @@ export class DetailAsesorComponent {
     };
     this.asesorService.postAsesor(nuevoAsesor).subscribe({
       next:(data:Asesor) => {
-        console.log(data);
-            this._snackBar.open("El curso se grabó","OK",{duration: 1000});
+            this._snackBar.open("grabado correctamente","OK",{duration: 1000});
             this.enrutador.navigate(["/home"]);
+            
+            console.log(data.id)
         },
         error:(err) => {
         this._snackBar.open(err.error.message,"OK",{duration: 2000});        

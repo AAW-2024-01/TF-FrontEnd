@@ -19,4 +19,6 @@
 </form>
 
 <button mat-flat-button (click)="agregarAsesoria()">Agregar Asesoria</button>
-<button mat-flat-button color="warn" routerLink="/detail-asesoria">Regresar</button>
+
+<button mat-flat-button color="warn" *ngIf="isAsesor()" routerLink="/list-asesoria">Regresar</button>
+<button mat-flat-button color="warn" *ngIf="!isAsesor()" routerLink="/detail-asesoria">Regresar</button>

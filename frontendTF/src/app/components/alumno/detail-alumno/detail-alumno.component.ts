@@ -19,6 +19,7 @@ export class DetailAlumnoComponent {
   constructor(private userService:UserService, private formBuilder: FormBuilder, 
               private alumnoService:AlumnoService,private enrutador: Router,
               private _snackBar: MatSnackBar, private ruta:ActivatedRoute){}
+
   ngOnInit(): void {
       this.crearFormGrup();
       this.id = this.ruta.snapshot.params["id"];
@@ -29,7 +30,6 @@ export class DetailAlumnoComponent {
           this.detalleFormGroup.get("ciclo")?.setValue(data.ciclo);
           this.detalleFormGroup.get("nombre")?.setValue(data.nombre);
           this.detalleFormGroup.get("apellido")?.setValue(data.apellido);
-      
         },
         error:(err)=>{
           console.log(err);
@@ -49,21 +49,20 @@ export class DetailAlumnoComponent {
   }
   guardarAlumno(){
     const nuevoAlumno:Alumno={
-      id: this.userService.getId()!,
-      ciclo:this.detalleFormGroup.get("ciclo")!.value,     
+      id: 0,
+      ciclo: this.detalleFormGroup.get("ciclo")!.value,     
       nombre: this.detalleFormGroup.get("nombre")!.value,
       apellido:this.detalleFormGroup.get("apellido")!.value,
-     
     };
     this.alumnoService.postAlumno(nuevoAlumno).subscribe({
       next:(data:Alumno) => {
-        console.log(data);
-            this._snackBar.open("El curso se grabó","OK",{duration: 1000});
+            //console.log(data);
+            this._snackBar.open("se agrego correctamente","OK",{duration: 1000});
             this.enrutador.navigate(["/home"]);
         },
         error:(err) => {
-        this._snackBar.open(err.error.message,"OK",{duration: 2000});        
-        console.log(err);
+          //this._snackBar.open(err.error.message,"OK",{duration: 2000});        
+          console.log(err);
       }
     });
   }

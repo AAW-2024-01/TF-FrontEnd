@@ -23,6 +23,7 @@ interface Estado {
 export class RegisterAsesoriaComponent {
   detalleFormGroup!:FormGroup;
   idAsesor:number=0;
+  id:number=0;
   estados: Estado[] = [
     {value: 'RESERVADA', viewValue: 'RESERVADA'},
     {value: 'REALIZADA', viewValue: 'REALIZADA'},
@@ -42,6 +43,20 @@ export class RegisterAsesoriaComponent {
   ngOnInit(): void {
     this.cargaHorario();
     this.crearFormGrup();
+    this.id = this.ruta.snapshot.params["id"];
+    if (this.id!=0 && this.id!=undefined) {
+      this.asesoriaService.getAsesoria(this.id).subscribe({
+        next: (data:Asesoria)=>{
+          this.detalleFormGroup.get("estado")?.setValue(data.estado);       
+          this.detalleFormGroup.get("horario")?.setValue(data.detalle.id);
+        },
+        error:(err)=>{
+          console.log(err);
+        }
+      })
+    } else {
+      this.id=0;
+    }
   }
   crearFormGrup(){
     this.detalleFormGroup = this.formBuilder.group({
@@ -69,7 +84,7 @@ export class RegisterAsesoriaComponent {
 
     const nuevaAsesoria:Asesoria ={
       id:0,
-      alumno:{id:1,nombre:"",apellido:"",ciclo:0},
+      alumno:{id:this.userService.getId()!,nombre:"",apellido:"",ciclo:0},
       asesor:{id:this.ruta.snapshot.params["id"],nombre:"",apellido:"",tarifa:0,experiencia:""},
       curso:{id:this.crearAsesoriaService.getCurso().valueOf(),nombre:"",ciclo:0},
       detalle:{id:this.detalleFormGroup.get("horario")?.value,horario:{id:0,dia:"",asesor:{id:this.ruta.snapshot.params["id"],nombre:"",apellido:"",tarifa:0,experiencia:""}},horaFin:"",horaInicio:""},
@@ -88,5 +103,8 @@ export class RegisterAsesoriaComponent {
   })
 
 
+}
+isAsesor(): boolean {
+  return this.userService.getAuthorities()?.includes('ROLE_TEACHER') ?? false;
 }
 }

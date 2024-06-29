@@ -11,6 +11,7 @@ import { AsesorCurso } from '../../../models/asesor-curso';
 import { Asesor } from '../../../models/asesor';
 import { UserService } from '../../../services/user.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { CambiosdeIdService } from '../../../cambiosde-id.service';
 
 @Component({
   selector: 'app-list-asesor-curso',
@@ -25,21 +26,25 @@ export class ListAsesorCursoComponent {
   detalleFormGroup!:FormGroup;
   constructor(private cursoService:CursoService,private _snackBar:MatSnackBar, private formBuilder:FormBuilder,
               private confirmador: MatDialog, private asesorService:AsesorService,
-              private asesorCursoService:AsesorCursoService, private userService:UserService){}
+              private asesorCursoService:AsesorCursoService, 
+              private userService:UserService, public cambioIdService:CambiosdeIdService){}
 
   ngOnInit(): void {
     this.id = this.userService.getId()!;
-    this.cargaAsesorCurso();
+     if (this.id) {
+      this.cargaAsesorCurso(this.id);
+    }
     this.crearForm();
     
   }
   crearForm(){
     this.detalleFormGroup = this.formBuilder.group({
-      carre:[""],
+      carr:[""],
     });    
   }
-  cargaAsesorCurso(){
-    this.asesorCursoService.getAsesorCursoByAsesorId(this.id).subscribe({
+  cargaAsesorCurso(id:number){
+    
+    this.asesorCursoService.getAsesorCursoByAsesorId(id).subscribe({
       next:(data:AsesorCurso[])=>{
         this.dataSource = new MatTableDataSource(data);
         this.listCarrera = Array.from(new Set(data.map(x => x.carrera)));
@@ -55,7 +60,7 @@ export class ListAsesorCursoComponent {
       if (result) {
         this.asesorCursoService.deleteAsesorCurso(id).subscribe({
           next: ()=>{
-            this.cargaAsesorCurso();
+            this.cargaAsesorCurso(this.id);
           },
           error:(err)=> {
             console.log(err);
@@ -78,7 +83,7 @@ export class ListAsesorCursoComponent {
     })
   }
   listarTodosLosCursos(){
-    this.asesorCursoService.getAsesorCursoByAsesorId(this.userService.getId()!).subscribe({
+    this.asesorCursoService.getAsesorCursoByAsesorId(this.id).subscribe({
       next:(data:AsesorCurso[])=>{
         this.dataSource = new MatTableDataSource(data);
       },

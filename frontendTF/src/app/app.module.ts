@@ -39,6 +39,7 @@ import { ListAlumnoCursoComponent } from './components/alumno-curso/list-alumno-
 import { RegisterAsesoriaComponent } from './components/asesoria/register-asesoria/register-asesoria.component';
 import { HomeAlumnoComponent } from './components/home/home-alumno/home-alumno.component';
 import { AutorizadorInterceptor } from './interceptors/autorizador';
+import { EditAsesoriaComponent } from './components/asesoria/edit-asesoria/edit-asesoria.component';
 
 
 @NgModule({
@@ -73,7 +74,8 @@ import { AutorizadorInterceptor } from './interceptors/autorizador';
     DetailAlumnoCursoComponent,
     ListAlumnoCursoComponent,
     RegisterAsesoriaComponent,
-    HomeAlumnoComponent
+    HomeAlumnoComponent,
+    EditAsesoriaComponent
   ],
   imports: [
     BrowserModule,

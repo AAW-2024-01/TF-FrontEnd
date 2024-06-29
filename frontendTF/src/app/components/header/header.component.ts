@@ -21,9 +21,6 @@ export class HeaderComponent implements OnInit {
    currentText: string = 'Alumno';
    previousText: string = 'Asesor';
    
-
-
-
   toggleText(): void {
     const tempText = this.currentText;
     this.currentText = this.previousText;

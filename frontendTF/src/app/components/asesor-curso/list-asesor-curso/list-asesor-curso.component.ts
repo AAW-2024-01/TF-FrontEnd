@@ -10,6 +10,7 @@ import { AsesorCursoService } from '../../../services/asesor-curso.service';
 import { AsesorCurso } from '../../../models/asesor-curso';
 import { Asesor } from '../../../models/asesor';
 import { UserService } from '../../../services/user.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-list-asesor-curso',
@@ -21,23 +22,24 @@ export class ListAsesorCursoComponent {
   dataSource!: MatTableDataSource<AsesorCurso>;
   id:number=0;
   listCarrera:string[]=[];
-
-  constructor(private cursoService:CursoService,private _snackBar:MatSnackBar, 
+  detalleFormGroup!:FormGroup;
+  constructor(private cursoService:CursoService,private _snackBar:MatSnackBar, private formBuilder:FormBuilder,
               private confirmador: MatDialog, private asesorService:AsesorService,
               private asesorCursoService:AsesorCursoService, private userService:UserService){}
-
-  applyFilter(evento:Event){
-    const filterValue = (evento.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
 
   ngOnInit(): void {
     this.id = this.userService.getId()!;
     this.cargaAsesorCurso();
+    this.crearForm();
     
   }
+  crearForm(){
+    this.detalleFormGroup = this.formBuilder.group({
+      carre:[""],
+    });    
+  }
   cargaAsesorCurso(){
-    this.asesorCursoService.getAllAsesorCurso().subscribe({
+    this.asesorCursoService.getAsesorCursoByAsesorId(this.id).subscribe({
       next:(data:AsesorCurso[])=>{
         this.dataSource = new MatTableDataSource(data);
         this.listCarrera = Array.from(new Set(data.map(x => x.carrera)));
@@ -67,7 +69,8 @@ export class ListAsesorCursoComponent {
     const selectedCarrera = event.value;
     this.asesorCursoService.getAsesorCursoByCarrera(selectedCarrera.toString()).subscribe({
       next:(data:AsesorCurso[])=>{
-        this.dataSource = new MatTableDataSource(data);
+        const filteredData = data.filter(asesorCurso => asesorCurso.asesor.id === this.id);
+        this.dataSource = new MatTableDataSource(filteredData);
       },
       error:(err)=>{
         console.log(err);
@@ -75,7 +78,7 @@ export class ListAsesorCursoComponent {
     })
   }
   listarTodosLosCursos(){
-    this.asesorCursoService.getAllAsesorCurso().subscribe({
+    this.asesorCursoService.getAsesorCursoByAsesorId(this.userService.getId()!).subscribe({
       next:(data:AsesorCurso[])=>{
         this.dataSource = new MatTableDataSource(data);
       },

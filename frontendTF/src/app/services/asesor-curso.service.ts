@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AsesorCurso } from '../models/asesor-curso';
 import { Curso } from '../models/curso';
+import { Asesor } from '../models/asesor';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,12 @@ export class AsesorCursoService {
   }
   getAsesorCursoByAsesorId(id:number){
     return this.clienteHTTP.get<AsesorCurso[]>(this.servidor+"/"+this.recurso + "/asesor" + "/" + id.toString());
+  }
+  getAsesorByCursoId(id:number){
+    return this.clienteHTTP.get<Asesor[]>(this.servidor+"/"+this.recurso + "/asesor" + "/curso/" + id.toString());
+  }
+  getAsesorCursoByCursoId(id:number){
+    return this.clienteHTTP.get<AsesorCurso[]>(this.servidor+"/"+this.recurso + "/curso" + "/" + id.toString());
   }
   getAsesorCursoByCarrera(carrera:string){
     return this.clienteHTTP.get<AsesorCurso[]>(this.servidor+"/"+this.recurso + "/asesorCurso/carrera" + "/" + carrera);

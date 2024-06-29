@@ -108,7 +108,7 @@ export class DetailAsesorCursoComponent {
               carrera: (this.detalleFormGroup.get("carrera")!.value),
               asesor: { id: this.userService.getId()!, nombre: "", apellido: "", tarifa: 0, experiencia: "" },
               //asesor: { id: this.detalleFormGroup.get("asesor")!.value, nombre: "", apellido: "", tarifa: 0, experiencia: "" },
-              curso: data
+              curso: {id:data.id,ciclo:data.ciclo,nombre:data.nombre}
           };
           this.asesorCursoService.postAsesorCurso(nuevoAsesorCurso).subscribe({
             next:(data:AsesorCurso)=>{

@@ -65,6 +65,9 @@ export class ListAsesoriaComponent {
     if(this.userService.getAuthorities()=="ROLE_TEACHER"){
       return true;
     }
-    else return false;
+    //else if(this.userService.getAuthorities()=="ROLE_STUDENT"){
+    //  return false
+    //} 
+    return false;
   }
 }

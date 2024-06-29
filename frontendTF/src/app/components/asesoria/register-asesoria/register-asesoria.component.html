@@ -1,1 +1,31 @@
 <p>register-asesoria works!</p>
+
+<form [formGroup]="detalleFormGroup">
+    <mat-form-field>
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="estado">
+          @for (estado of estados; track estado) {
+            <mat-option [value]="estado.value">{{estado.viewValue}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    <br>
+    <mat-form-field style="width:280px;">        
+        <mat-label>Horario</mat-label>
+        <mat-select formControlName="horario" >
+            <mat-option *ngFor="let detalle of listDetalleHorario" [value]="detalle.horario.id">{{detalle.horario.dia}} ({{ detalle.horaInicio }} - {{detalle.horaFin}}) </mat-option>
+        </mat-select>
+    </mat-form-field>
+     <mat-form-field>        
+        <mat-label>Hora Inicio</mat-label>
+        <mat-select formControlName="horaInicio">
+            <mat-option *ngFor="let horaInicio of listDetalleHorario"  [value]="horaInicio.horaInicio">{{horaInicio.horaInicio}} </mat-option>
+        </mat-select>
+    </mat-form-field>   
+    <mat-form-field>        
+        <mat-label>Hora Fin</mat-label>
+        <mat-select formControlName="horaFin">
+            <mat-option *ngFor="let horaFin of listDetalleHorario" [value]="horaFin.horaFin"> {{horaFin.horaFin}} </mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>

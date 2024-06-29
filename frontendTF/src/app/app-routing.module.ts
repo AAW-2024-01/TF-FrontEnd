@@ -25,6 +25,7 @@ import { DetailAsesorCursoComponent } from './components/asesor-curso/detail-ase
 import { RegisterComponent } from './components/register/register.component';
 import { RegistrarAsesoriaComponent } from './components/asesoria/registrar-asesoria/registrar-asesoria.component';
 import { HomeAlumnoComponent } from './components/home/home-alumno/home-alumno.component';
+import { RegisterAsesoriaComponent } from './components/asesoria/register-asesoria/register-asesoria.component';
 
 const routes: Routes = [
   {path:"",component:LoginComponent},
@@ -44,7 +45,7 @@ const routes: Routes = [
   {path:"edit-horario/:id",component:DetailHorarioComponent},
   {path:"list-asesoria",component:ListAsesoriaComponent},
   {path:"detail-asesoria",component:DetailAsesoriaComponent},
-  {path:"register-asesoria",component:RegistrarAsesoriaComponent},
+  {path:"register-asesoria",component:RegisterAsesoriaComponent},
   {path:"edit-asesoria/:id",component:DetailAsesoriaComponent},
   {path:"list-opinion",component:ListOpinionComponent},
   {path:"detail-opinion",component:DetailOpinionComponent},

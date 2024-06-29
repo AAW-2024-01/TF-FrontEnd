@@ -47,7 +47,6 @@ export class HeaderComponent {
     }
   }
   
-
   logout(){
     this.usuarioServicio.logoutUsuario();
     this.enrutador.navigate(["/"]);

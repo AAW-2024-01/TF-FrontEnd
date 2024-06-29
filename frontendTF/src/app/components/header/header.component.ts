@@ -80,7 +80,6 @@ homeSwitch():void
     }
   }
   
-
   logout(){
     this.usuarioServicio.logoutUsuario();
     this.enrutador.navigate(["/"]);

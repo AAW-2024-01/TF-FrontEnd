@@ -19,7 +19,6 @@ export class RegisterComponent {
   constructor (private servicioUsuario: UserService, private formBuilder:FormBuilder,
             private enrutador: Router, private _snackBar: MatSnackBar) {}
   
-  
    ngOnInit(){
     this.crearFormGrup();
    }
@@ -41,7 +40,6 @@ export class RegisterComponent {
   
     this.servicioUsuario.registrarUsuario(usuario).subscribe({
       next:(data) => {
-  
         this.enrutador.navigate(["/"]);
         this._snackBar.open("El usuario se registró correctamente","OK",{duration: 2000});
         this.idAsesor =data.id;

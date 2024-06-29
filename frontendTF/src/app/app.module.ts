@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MaterialModule } from './modules/material/material.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ListAlumnoComponent } from './components/alumno/list-alumno/list-alumno.component';
@@ -36,7 +36,10 @@ import { RegisterComponent } from './components/register/register.component';
 import { AlumnoCursoComponent } from './components/alumno-curso/alumno-curso.component';
 import { DetailAlumnoCursoComponent } from './components/alumno-curso/detail-alumno-curso/detail-alumno-curso.component';
 import { ListAlumnoCursoComponent } from './components/alumno-curso/list-alumno-curso/list-alumno-curso.component';
-import { HomealumnoComponent } from './components/homealumno/homealumno.component';
+import { RegisterAsesoriaComponent } from './components/asesoria/register-asesoria/register-asesoria.component';
+import { HomeAlumnoComponent } from './components/home/home-alumno/home-alumno.component';
+import { AutorizadorInterceptor } from './interceptors/autorizador';
+import { EditAsesoriaComponent } from './components/asesoria/edit-asesoria/edit-asesoria.component';
 
 
 @NgModule({
@@ -70,7 +73,9 @@ import { HomealumnoComponent } from './components/homealumno/homealumno.componen
     AlumnoCursoComponent,
     DetailAlumnoCursoComponent,
     ListAlumnoCursoComponent,
-    HomealumnoComponent
+    RegisterAsesoriaComponent,
+    HomeAlumnoComponent,
+    EditAsesoriaComponent
   ],
   imports: [
     BrowserModule,
@@ -82,8 +87,9 @@ import { HomealumnoComponent } from './components/homealumno/homealumno.componen
   ],
   providers: [
     provideClientHydration(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    {provide: HTTP_INTERCEPTORS, useClass:AutorizadorInterceptor, multi:true}
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

@@ -10,6 +10,8 @@ import { AsesorCursoService } from '../../../services/asesor-curso.service';
 import { AsesorCurso } from '../../../models/asesor-curso';
 import { Asesor } from '../../../models/asesor';
 import { UserService } from '../../../services/user.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { CambiosdeIdService } from '../../../cambiosde-id.service';
 
 @Component({
   selector: 'app-list-asesor-curso',
@@ -17,28 +19,35 @@ import { UserService } from '../../../services/user.service';
   styleUrl: './list-asesor-curso.component.css'
 })
 export class ListAsesorCursoComponent {
-  displayedColumns:string[]=["id","nombre","ciclo","nivelDominio","acciones"];
+  displayedColumns:string[]=["id","nombre","ciclo","carrera","acciones"];
   dataSource!: MatTableDataSource<AsesorCurso>;
   id:number=0;
-
-  constructor(private cursoService:CursoService,private _snackBar:MatSnackBar, 
+  listCarrera:string[]=[];
+  detalleFormGroup!:FormGroup;
+  constructor(private cursoService:CursoService,private _snackBar:MatSnackBar, private formBuilder:FormBuilder,
               private confirmador: MatDialog, private asesorService:AsesorService,
-              private asesorCursoService:AsesorCursoService, private userService:UserService){}
-
-  applyFilter(evento:Event){
-    const filterValue = (evento.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-  }
+              private asesorCursoService:AsesorCursoService, 
+              private userService:UserService, public cambioIdService:CambiosdeIdService){}
 
   ngOnInit(): void {
     this.id = this.userService.getId()!;
-    this.cargaAsesorCurso();
+     if (this.id) {
+      this.cargaAsesorCurso(this.id);
+    }
+    this.crearForm();
     
   }
-  cargaAsesorCurso(){
-    this.asesorCursoService.getAsesorCursoByAsesorId(this.id).subscribe({
+  crearForm(){
+    this.detalleFormGroup = this.formBuilder.group({
+      carr:[""],
+    });    
+  }
+  cargaAsesorCurso(id:number){
+    
+    this.asesorCursoService.getAsesorCursoByAsesorId(id).subscribe({
       next:(data:AsesorCurso[])=>{
         this.dataSource = new MatTableDataSource(data);
+        this.listCarrera = Array.from(new Set(data.map(x => x.carrera)));
       },
       error:(err)=>{
         console.log(err);
@@ -51,7 +60,7 @@ export class ListAsesorCursoComponent {
       if (result) {
         this.asesorCursoService.deleteAsesorCurso(id).subscribe({
           next: ()=>{
-            this.cargaAsesorCurso();
+            this.cargaAsesorCurso(this.id);
           },
           error:(err)=> {
             console.log(err);
@@ -60,5 +69,27 @@ export class ListAsesorCursoComponent {
         });
       }    
     });
+  }
+  filterCarrera(event:any){
+    const selectedCarrera = event.value;
+    this.asesorCursoService.getAsesorCursoByCarrera(selectedCarrera.toString()).subscribe({
+      next:(data:AsesorCurso[])=>{
+        const filteredData = data.filter(asesorCurso => asesorCurso.asesor.id === this.id);
+        this.dataSource = new MatTableDataSource(filteredData);
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
+  listarTodosLosCursos(){
+    this.asesorCursoService.getAsesorCursoByAsesorId(this.id).subscribe({
+      next:(data:AsesorCurso[])=>{
+        this.dataSource = new MatTableDataSource(data);
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
   }
 }

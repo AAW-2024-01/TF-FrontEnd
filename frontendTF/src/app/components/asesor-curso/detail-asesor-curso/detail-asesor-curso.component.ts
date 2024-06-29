@@ -9,6 +9,8 @@ import { AsesorService } from '../../../services/asesor.service';
 import { CursoService } from '../../../services/curso.service';
 import { AsesorCurso } from '../../../models/asesor-curso';
 import { UserService } from '../../../services/user.service';
+import { CambiosdeIdService } from '../../../cambiosde-id.service';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-detail-asesor-curso',
@@ -19,13 +21,15 @@ export class DetailAsesorCursoComponent {
 
   detalleFormGroup!:FormGroup;
   id:number=0;
+  idAsesor:number=0;
   //listCursos:Curso[]=[];
   //listAsesor:Asesor[]=[];
   
 
   constructor (private asesorCursoService: AsesorCursoService, private formBuilder:FormBuilder,
                private enrutador: Router, private _snackBar: MatSnackBar, private ruta:ActivatedRoute,
-               private cursoService: CursoService,private asesorService: AsesorService, private userService: UserService) {};
+               private cursoService: CursoService,private asesorService: AsesorService, 
+               private userService: UserService, public cambioIdService:CambiosdeIdService) {};
 
 
   ngOnInit(){
@@ -37,7 +41,7 @@ export class DetailAsesorCursoComponent {
       this.asesorCursoService.getAsesorCurso(this.id).subscribe({
         next: (data:AsesorCurso)=>{
           this.detalleFormGroup.get("id")?.setValue(data.id);
-          this.detalleFormGroup.get("nivelDominio")?.setValue(data.nivelDominio);
+          this.detalleFormGroup.get("carrera")?.setValue(data.carrera);
           this.cursoService.getCurso(data.curso.id).subscribe({
             next: (cursoData: Curso) => {
               this.detalleFormGroup.get("nombre")?.setValue(cursoData.nombre);
@@ -60,9 +64,7 @@ export class DetailAsesorCursoComponent {
   crearFormGrup(){
     this.detalleFormGroup = this.formBuilder.group({
       id:[""],
-      nivelDominio:[""],
-      //asesor:[""],
-      //curso:[""], 
+      carrera:[""],
       nombre:[""],
       ciclo:[""]  
     });    
@@ -104,10 +106,9 @@ export class DetailAsesorCursoComponent {
         next:(data:Curso) => {
           const nuevoAsesorCurso:AsesorCurso = { 
               id: parseInt(this.detalleFormGroup.get("id")!.value),
-              nivelDominio: parseInt(this.detalleFormGroup.get("nivelDominio")!.value),
+              carrera: (this.detalleFormGroup.get("carrera")!.value),
               asesor: { id: this.userService.getId()!, nombre: "", apellido: "", tarifa: 0, experiencia: "" },
-              //asesor: { id: this.detalleFormGroup.get("asesor")!.value, nombre: "", apellido: "", tarifa: 0, experiencia: "" },
-              curso: data
+              curso: {id:data.id,ciclo:data.ciclo,nombre:data.nombre}
           };
           this.asesorCursoService.postAsesorCurso(nuevoAsesorCurso).subscribe({
             next:(data:AsesorCurso)=>{
@@ -117,6 +118,7 @@ export class DetailAsesorCursoComponent {
             error:(err) => {
               this._snackBar.open(err.error.message,"OK",{duration: 2000});        
               console.log(err);
+              console.log(this.cambioIdService.getAsesorId());
             }
           });
         },

@@ -37,6 +37,7 @@ import { AlumnoCursoComponent } from './components/alumno-curso/alumno-curso.com
 import { DetailAlumnoCursoComponent } from './components/alumno-curso/detail-alumno-curso/detail-alumno-curso.component';
 import { ListAlumnoCursoComponent } from './components/alumno-curso/list-alumno-curso/list-alumno-curso.component';
 import { RegisterAsesoriaComponent } from './components/asesoria/register-asesoria/register-asesoria.component';
+import { HomeAlumnoComponent } from './components/home/home-alumno/home-alumno.component';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import { RegisterAsesoriaComponent } from './components/asesoria/register-asesor
     AlumnoCursoComponent,
     DetailAlumnoCursoComponent,
     ListAlumnoCursoComponent,
-    RegisterAsesoriaComponent
+    RegisterAsesoriaComponent,
+    HomeAlumnoComponent
   ],
   imports: [
     BrowserModule,

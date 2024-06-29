@@ -29,6 +29,15 @@
     top: 35;
     right: 0;
 } */
+ #homelogotxt
+ {
+    position: absolute;
+    left: 3.4em;
+    top: 6em;
+    color:#fff;
+    cursor: pointer;
+ }
+
 #icon_menu
 {
     position: absolute;

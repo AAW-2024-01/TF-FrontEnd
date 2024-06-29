@@ -2,11 +2,13 @@
     <div class="contenedor_header">
     <div class="menu_bar">
         <div class="logo">
-            <img src="/logo.png" routerLink="/home">
+            <img src="/logo.png" (click)="homeSwitch()">
+            <!-- <img src="/logo.png"> -->
+             <span id="homelogotxt" *ngIf="usuarioLogeado()" (click)="homeSwitch()">HOME</span>
         </div>
     </div>
     <div class="tipo_usuario">
-      <h2>{{currentText}}</h2>
+      <h2>{{currentText}} </h2>
     </div>
     
     <div class="boton_3p">
@@ -16,7 +18,7 @@
         </button>
         <div class="button-container">
           <mat-menu #menu="matMenu" xPosition="before">
-              <div class="button-wrapper">
+              <div class="button-wrapper" *ngIf="usuarioLogeado()">
                   <button class="my-button" mat-button (click)="openDialog()">
                       <img id="profile" src="/profile.svg">
                       <span> Ver mi Perfil</span>

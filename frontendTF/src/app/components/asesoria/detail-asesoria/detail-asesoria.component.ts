@@ -18,6 +18,7 @@ import { UserService } from '../../../services/user.service';
 import { DetalleHorario } from '../../../models/detalle-horario';
 import { DetalleHorarioService } from '../../../services/detalle-horario.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { CrearAsesoriaService } from '../../../crear-asesoria.service';
 
 interface Estado {
   value: string;
@@ -31,7 +32,7 @@ interface Estado {
 export class DetailAsesoriaComponent {
   detalleFormGroup!:FormGroup;
   id:number=0;
-  listCursos:AsesorCurso[]=[];
+  listCursos:Curso[]=[];
 
   listAsesor:AsesorCurso[]=[];
   //listHorario:Horario[]=[];
@@ -51,17 +52,19 @@ export class DetailAsesoriaComponent {
     {value: 'REALIZADA', viewValue: 'REALIZADA'},
     {value: 'CANCELADA', viewValue: 'CANCELADA'},
   ];
+
+
+
   constructor (private asesoriaService: AsesoriaService, private formBuilder:FormBuilder,
                private enrutador: Router, private _snackBar: MatSnackBar, private ruta:ActivatedRoute,
             private cursoService: CursoService, private alumnoService: AlumnoService,
             private asesorService: AsesorService, private horarioService:HorarioService,
             private asesorCursoService: AsesorCursoService, private userService:UserService,
-            private detalleHorarioService:DetalleHorarioService) {};
+            private detalleHorarioService:DetalleHorarioService, public crearAsesoriaService:CrearAsesoriaService) {};
 
   ngOnInit(){
     this.idAsesor = this.userService.getId()!;
     this.cargaAsesor();
-    this.cargaHorario();
     this.cargaCursos();
   }
 
@@ -89,31 +92,6 @@ export class DetailAsesoriaComponent {
       }
     })
   }
-  cargaHorario(){
-    this.detalleHorarioService.getDetalleHorariosPorAsesorId(this.idAsesor).subscribe({
-      next:(data:DetalleHorario[])=>{
-        //this.listDetalleHorario=data;
-        //this.listHorario=data.map(x=>x.horario);
-       // Obtener días únicos para usarlos como opciones en el select de horario
-        this.dias = Array.from(new Set(data.map(horario => horario.horario.dia)));  
-
-        // Inicialmente mostrar horarios del primer día
-        if (this.dias.length > 0) {
-         this.filtrarHorasPorDia(this.dias[0]); // Filtrar por el primer día
-        }
-    },
-    error: (err) => {
-      console.log(err);
-    }
-  });
-  }
-  filtrarHorasPorDia(diaSeleccionado: string) {
-   // Filtrar horas de inicio y fin por el día seleccionado
-    //const horariosDelDia = this.listDetalleHorario.filter(horario => horario.horario.dia === diaSeleccionado);
-    //this.horasInicio = horariosDelDia.map(horario => horario.horaInicio);
-    //this.horasFin = horariosDelDia.map(horario => horario.horaFin);
-  
-  }
   filterCarrera(event: any): void {
     const selectedCarrera = event.value;
     this.cargarCursosPorCarrera(selectedCarrera);
@@ -121,6 +99,8 @@ export class DetailAsesoriaComponent {
   filterAsesores(event:any){
     const selectCurso = event.value;
     this.cargarAsesoresPorCurso(selectCurso)
+    //para asignar el valor de cursoId 
+    this.crearAsesoriaService.setCurso(selectCurso);
   }
   cargarAsesoresPorCurso(idCurso:number){
     this.asesorCursoService.getAsesorByCursoId(idCurso).subscribe({
@@ -133,8 +113,8 @@ export class DetailAsesoriaComponent {
     })
   }
   cargarCursosPorCarrera(carrera: string) {
-    this.asesorCursoService.getAsesorCursoByCarrera(carrera).subscribe({
-      next: (data: AsesorCurso[]) => {
+    this.cursoService.getAllCursos().subscribe({
+      next: (data: Curso[]) => {
         this.listCursos = data;
       },
       error: (err) => {

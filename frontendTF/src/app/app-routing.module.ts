@@ -23,12 +23,13 @@ import { DetailAsesoriaComponent } from './components/asesoria/detail-asesoria/d
 import { ListAsesorCursoComponent } from './components/asesor-curso/list-asesor-curso/list-asesor-curso.component';
 import { DetailAsesorCursoComponent } from './components/asesor-curso/detail-asesor-curso/detail-asesor-curso.component';
 import { RegisterComponent } from './components/register/register.component';
-import { RegistrarAsesoriaComponent } from './components/asesoria/registrar-asesoria/registrar-asesoria.component';
 import { HomeAlumnoComponent } from './components/home/home-alumno/home-alumno.component';
 import { RegisterAsesoriaComponent } from './components/asesoria/register-asesoria/register-asesoria.component';
+import { AuthenticatedAuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {path:"",component:LoginComponent},
+  {path:"login",component:LoginComponent},
   {path:"register",component:RegisterComponent},
   {path:"list-alumno",component:ListAlumnoComponent},
   {path:"list-asesor",component:ListAsesorComponent},
@@ -45,20 +46,19 @@ const routes: Routes = [
   {path:"edit-horario/:id",component:DetailHorarioComponent},
   {path:"list-asesoria",component:ListAsesoriaComponent},
   {path:"detail-asesoria",component:DetailAsesoriaComponent},
-  {path:"register-asesoria",component:RegisterAsesoriaComponent},
+  {path:"register-asesoria/:id",component:RegisterAsesoriaComponent},
   {path:"edit-asesoria/:id",component:DetailAsesoriaComponent},
   {path:"list-opinion",component:ListOpinionComponent},
   {path:"detail-opinion",component:DetailOpinionComponent},
-  {path:"home",component:HomeComponent},
-  {path:"homealumno",component:HomeAlumnoComponent},
+  {path:"home",component:HomeComponent,canActivate:[AuthenticatedAuthGuard]},
+  {path:"homealumno",component:HomeAlumnoComponent,canActivate:[AuthenticatedAuthGuard]},
   //{path:"",component:HomeComponent},
   {path:"header",component:HeaderComponent},
   {path:"footer",component:FooterComponent},
-  {path:"perfilalumno",component:PerfilAlumnoComponent} , 
-  {path:"perfilasesor",component:PerfilAsesorComponent} , 
+  {path:"perfilalumno",component:PerfilAlumnoComponent}, 
+  {path:"perfilasesor",component:PerfilAsesorComponent}, 
   {path:"perfileditalumno",component:DetailAlumnoComponent},
-  {path:"perfileditasesor",component:DetailAsesorComponent}  
-
+  {path:"perfileditasesor",component:DetailAsesorComponent} 
 ];
 
 @NgModule({

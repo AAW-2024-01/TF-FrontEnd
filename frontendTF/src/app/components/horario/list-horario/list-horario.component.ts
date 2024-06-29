@@ -34,7 +34,7 @@ export class ListHorarioComponent {
   }
 
   cargaHorarios(){
-    this.detaleHorarioService.getDetalleHorariosPorAsesorId(5).subscribe({
+    this.detaleHorarioService.getDetalleHorariosPorAsesorId(this.userService.getId()!).subscribe({
       next:(data:DetalleHorario[])=>{
         this.dataSource = new MatTableDataSource(data);
       },

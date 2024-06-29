@@ -16,16 +16,7 @@
             <mat-option *ngFor="let detalle of listDetalleHorario" [value]="detalle.horario.id">{{detalle.horario.dia}} ({{ detalle.horaInicio }} - {{detalle.horaFin}}) </mat-option>
         </mat-select>
     </mat-form-field>
-     <mat-form-field>        
-        <mat-label>Hora Inicio</mat-label>
-        <mat-select formControlName="horaInicio">
-            <mat-option *ngFor="let horaInicio of listDetalleHorario"  [value]="horaInicio.horaInicio">{{horaInicio.horaInicio}} </mat-option>
-        </mat-select>
-    </mat-form-field>   
-    <mat-form-field>        
-        <mat-label>Hora Fin</mat-label>
-        <mat-select formControlName="horaFin">
-            <mat-option *ngFor="let horaFin of listDetalleHorario" [value]="horaFin.horaFin"> {{horaFin.horaFin}} </mat-option>
-        </mat-select>
-    </mat-form-field>
 </form>
+
+<button mat-flat-button (click)="agregarAsesoria()">Agregar Asesoria</button>
+<button mat-flat-button color="warn" routerLink="/detail-asesoria">Regresar</button>

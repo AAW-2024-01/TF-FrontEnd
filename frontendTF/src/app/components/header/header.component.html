@@ -4,6 +4,7 @@
         <div class="logo">
             <img src="/logo.png" (click)="homeSwitch()">
             <!-- <img src="/logo.png"> -->
+             <span id="homelogotxt" *ngIf="usuarioLogeado()" (click)="homeSwitch()">HOME</span>
         </div>
     </div>
     <div class="tipo_usuario">

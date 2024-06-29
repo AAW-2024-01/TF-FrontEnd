@@ -37,7 +37,7 @@ export class DetailAsesorCursoComponent {
       this.asesorCursoService.getAsesorCurso(this.id).subscribe({
         next: (data:AsesorCurso)=>{
           this.detalleFormGroup.get("id")?.setValue(data.id);
-          this.detalleFormGroup.get("nivelDominio")?.setValue(data.nivelDominio);
+          this.detalleFormGroup.get("carrera")?.setValue(data.carrera);
           this.cursoService.getCurso(data.curso.id).subscribe({
             next: (cursoData: Curso) => {
               this.detalleFormGroup.get("nombre")?.setValue(cursoData.nombre);
@@ -60,7 +60,7 @@ export class DetailAsesorCursoComponent {
   crearFormGrup(){
     this.detalleFormGroup = this.formBuilder.group({
       id:[""],
-      nivelDominio:[""],
+      carrera:[""],
       //asesor:[""],
       //curso:[""], 
       nombre:[""],
@@ -104,7 +104,8 @@ export class DetailAsesorCursoComponent {
         next:(data:Curso) => {
           const nuevoAsesorCurso:AsesorCurso = { 
               id: parseInt(this.detalleFormGroup.get("id")!.value),
-              nivelDominio: parseInt(this.detalleFormGroup.get("nivelDominio")!.value),
+              //nivelDominio: parseInt(this.detalleFormGroup.get("c")!.value),
+              carrera: (this.detalleFormGroup.get("carrera")!.value),
               asesor: { id: this.userService.getId()!, nombre: "", apellido: "", tarifa: 0, experiencia: "" },
               //asesor: { id: this.detalleFormGroup.get("asesor")!.value, nombre: "", apellido: "", tarifa: 0, experiencia: "" },
               curso: data

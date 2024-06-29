@@ -18,7 +18,9 @@ export class AsesoriaService {
   getAsesoria(id:number){
     return this.clienteHTTP.get<Asesoria>(this.servidor+"/"+this.recurso + "/" + id.toString());
   }
-
+  getAsesoriaByAsesorId(id:number){
+    return this.clienteHTTP.get<Asesoria[]>(this.servidor+"/"+this.recurso + "/asesor" + "/" + id.toString());
+  }
   postAsesoria(alumno:Asesoria){
     return this.clienteHTTP.post<Asesoria>(this.servidor+"/"+this.recurso,alumno);
   }

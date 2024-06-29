@@ -5,14 +5,13 @@
 
 <br>
 <br>
-<form [formGroup]="detalleFormGroup">
-
+<form [formGroup]="detalleFormGroup" *ngIf="validarAutoridad()">
     <mat-form-field>        
         <mat-label>Id</mat-label>
         <input matInput formControlName="id" readonly>
     </mat-form-field>
     <br>
-    <mat-form-field>        
+<!---<mat-form-field>        
         <mat-label>Alumno</mat-label>
         <mat-select formControlName="alumno">
             <mat-option *ngFor="let alumno of listAlumno" [value]="alumno.id">{{alumno.nombre}} </mat-option>
@@ -32,30 +31,26 @@
             <mat-option *ngFor="let curso of listCursos" [value]="curso.id">{{curso.nombre}} </mat-option>
         </mat-select>
     </mat-form-field>
-    <br>
-    <mat-form-field>        
+    <br>-->
+    <mat-form-field style="width:280px;">        
         <mat-label>Horario</mat-label>
-        <mat-select formControlName="horario">
-            <mat-option *ngFor="let horario of listHorario" [value]="horario.id">{{horario.dia}} </mat-option>
+        <mat-select formControlName="horario" >
+            <mat-option *ngFor="let detalle of listDetalleHorario" [value]="detalle.horario.id">{{detalle.horario.dia}} ({{ detalle.horaInicio }} - {{detalle.horaFin}}) </mat-option>
         </mat-select>
     </mat-form-field>
-    <mat-form-field>        
+   <!--- <mat-form-field>        
         <mat-label>Hora Inicio</mat-label>
         <mat-select formControlName="horaInicio">
-            <mat-option *ngFor="let horaInicio of horasInicio"  [value]="horaInicio">{{horaInicio}} </mat-option>
+            <mat-option *ngFor="let horaInicio of listDetalleHorario"  [value]="horaInicio.horaInicio">{{horaInicio.horaInicio}} </mat-option>
         </mat-select>
-    </mat-form-field>
+    </mat-form-field>   
     <mat-form-field>        
         <mat-label>Hora Fin</mat-label>
         <mat-select formControlName="horaFin">
-            <mat-option *ngFor="let horaFin of horasFin" [value]="horaFin"> {{horaFin}} </mat-option>
+            <mat-option *ngFor="let horaFin of listDetalleHorario" [value]="horaFin.horaFin"> {{horaFin.horaFin}} </mat-option>
         </mat-select>
     </mat-form-field>
-    <br>
-    <mat-form-field>
-        <mat-label>Monto</mat-label>
-        <input matInput formControlName="monto">
-    </mat-form-field>
+    -->
     <br>
     <mat-form-field>
         <mat-label>Estado</mat-label>

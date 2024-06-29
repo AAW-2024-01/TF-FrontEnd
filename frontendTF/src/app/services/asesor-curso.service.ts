@@ -22,6 +22,9 @@ export class AsesorCursoService {
   getAsesorCursoByAsesorId(id:number){
     return this.clienteHTTP.get<AsesorCurso[]>(this.servidor+"/"+this.recurso + "/asesor" + "/" + id.toString());
   }
+  getAsesorCursoByCarrera(carrera:string){
+    return this.clienteHTTP.get<AsesorCurso[]>(this.servidor+"/"+this.recurso + "/asesorCurso/carrera" + "/" + carrera);
+  }
   postAsesorCurso(asesorCurso:AsesorCurso){
     return this.clienteHTTP.post<AsesorCurso>(this.servidor+"/"+this.recurso,asesorCurso);
   }

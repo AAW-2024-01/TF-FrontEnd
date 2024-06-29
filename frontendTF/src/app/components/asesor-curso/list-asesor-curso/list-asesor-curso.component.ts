@@ -17,9 +17,10 @@ import { UserService } from '../../../services/user.service';
   styleUrl: './list-asesor-curso.component.css'
 })
 export class ListAsesorCursoComponent {
-  displayedColumns:string[]=["id","nombre","ciclo","nivelDominio","acciones"];
+  displayedColumns:string[]=["id","nombre","ciclo","carrera","acciones"];
   dataSource!: MatTableDataSource<AsesorCurso>;
   id:number=0;
+  listCarrera:string[]=[];
 
   constructor(private cursoService:CursoService,private _snackBar:MatSnackBar, 
               private confirmador: MatDialog, private asesorService:AsesorService,
@@ -36,9 +37,10 @@ export class ListAsesorCursoComponent {
     
   }
   cargaAsesorCurso(){
-    this.asesorCursoService.getAsesorCursoByAsesorId(this.id).subscribe({
+    this.asesorCursoService.getAllAsesorCurso().subscribe({
       next:(data:AsesorCurso[])=>{
         this.dataSource = new MatTableDataSource(data);
+        this.listCarrera = Array.from(new Set(data.map(x => x.carrera)));
       },
       error:(err)=>{
         console.log(err);
@@ -60,5 +62,26 @@ export class ListAsesorCursoComponent {
         });
       }    
     });
+  }
+  filterCarrera(event:any){
+    const selectedCarrera = event.value;
+    this.asesorCursoService.getAsesorCursoByCarrera(selectedCarrera.toString()).subscribe({
+      next:(data:AsesorCurso[])=>{
+        this.dataSource = new MatTableDataSource(data);
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
+  }
+  listarTodosLosCursos(){
+    this.asesorCursoService.getAllAsesorCurso().subscribe({
+      next:(data:AsesorCurso[])=>{
+        this.dataSource = new MatTableDataSource(data);
+      },
+      error:(err)=>{
+        console.log(err);
+      }
+    })
   }
 }

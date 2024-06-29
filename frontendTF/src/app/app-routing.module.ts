@@ -23,7 +23,7 @@ import { DetailAsesoriaComponent } from './components/asesoria/detail-asesoria/d
 import { ListAsesorCursoComponent } from './components/asesor-curso/list-asesor-curso/list-asesor-curso.component';
 import { DetailAsesorCursoComponent } from './components/asesor-curso/detail-asesor-curso/detail-asesor-curso.component';
 import { RegisterComponent } from './components/register/register.component';
-import { RegistrarAsesoriaComponent } from './components/asesoria/registrar-asesoria/registrar-asesoria.component';
+import { RegisterAsesoriaComponent } from './components/asesoria/register-asesoria/register-asesoria.component';
 
 const routes: Routes = [
   {path:"",component:LoginComponent},
@@ -43,7 +43,7 @@ const routes: Routes = [
   {path:"edit-horario/:id",component:DetailHorarioComponent},
   {path:"list-asesoria",component:ListAsesoriaComponent},
   {path:"detail-asesoria",component:DetailAsesoriaComponent},
-  {path:"register-asesoria",component:RegistrarAsesoriaComponent},
+  {path:"register-asesoria",component:RegisterAsesoriaComponent},
   {path:"edit-asesoria/:id",component:DetailAsesoriaComponent},
   {path:"list-opinion",component:ListOpinionComponent},
   {path:"detail-opinion",component:DetailOpinionComponent},
